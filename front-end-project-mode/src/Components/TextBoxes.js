@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function TextBoxes() {
+export default function TextBoxes({ loginStatus, setLoginStatus }) {
+
+  function logIn() {
+    setLoginStatus('true');
+  }
+
   return (
     <div className="textBoxes">
       <p> User Name: </p>
@@ -10,7 +15,7 @@ export default function TextBoxes() {
       <input type="text" />
       <p> </p>
 
-      <button type="submit"> Log In </button>
+      <button type="submit" onClick={logIn}> Log In </button>
       <text> </text>
 
       <button type="submit"> Sign Up</button>

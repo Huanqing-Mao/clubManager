@@ -3,7 +3,7 @@ import tlogo from "./tlogo.png";
 import TextBoxes from "./TextBoxes";
 import { useState } from "react";
 
-export default function Window() {
+export default function Window({ loginStatus, setLoginStatus }) {
   const [isRotated, setIsRotated] = useState(false);
 
   const handleImageClick = () => {
@@ -17,7 +17,7 @@ export default function Window() {
           {" "}
           Member/Manager Log-in
         </h1>
-        <TextBoxes />
+        <TextBoxes loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
       </div>
       <div
         className="tlogo"

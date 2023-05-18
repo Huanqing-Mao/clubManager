@@ -1,14 +1,18 @@
 import "./styles.css";
-import Window from "./Components/Window";
-import TopBanner from "./Components/TopBanner";
-import BottomBanner from "./Components/BottomBanner";
+import LoginPage from "./LoginPage.js"
+import { useState } from 'react';
+import HomePage from "./Home/HomePage"
 
 export default function App() {
-  return (
-    <div className="App">
-      <TopBanner />
-      <Window />
-      <BottomBanner />
-    </div>
-  );
+    let webBody;
+
+    const [loginStatus, setLoginStatus] = useState('false');
+
+    if (loginStatus === 'true') {
+        webBody = <HomePage />
+    } else {
+        webBody = <LoginPage loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+    }
+
+    return <div>{webBody}</div>;
 }

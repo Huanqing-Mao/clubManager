@@ -1,4 +1,3 @@
-import "./App.css";
 import TopBar from "./components/TopBar";
 import Body from "./components/Body";
 import { useState } from "react";

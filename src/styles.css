@@ -376,7 +376,8 @@ hr {
 }
 
 .body {
-  margin-left: 20%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 @media (max-width: 767px) {
@@ -388,17 +389,24 @@ hr {
   }
 }
 
-.float-container {
+.flex-container {
   padding-top: 2%;
   padding-bottom: 10%;
   overflow: auto;
+  display: inline-flex;
+}
+
+.calendar {
+  margin-left: 2%;
+  flex-grow: 1;
+  width: 20%;
 }
 
 .timeline {
-  float: left;
-  margin-left: 2%;
-  margin-right: 50%;
   transition: 0.3s ease;
+  text-align: center;
+  flex-grow: 1;
+  margin-left: 2%;
 }
 
 .timeline:hover {
@@ -406,11 +414,34 @@ hr {
 }
 
 .announcement {
-  margin-left: 2%;
-  float: left;
+  text-align: center;
+  flex-grow: 1;
   transition: 0.3s ease;
+  margin-left: 2%;
 }
 
 .announcement:hover {
   transform: scale(1.04);
+}
+
+.AnnSection {
+  flex-grow: 1;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notes-month {
+  font-size: 28px;
+  text-align: center;
+}
+.notes-month section {
+  font-size: 28px;
 }

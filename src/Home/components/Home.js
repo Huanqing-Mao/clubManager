@@ -1,5 +1,4 @@
 import { Divider } from "antd";
-import { Badge, Calendar } from 'antd';
 import Timeline from "./Timeline";
 
 function Home({ setActiveSection, activeSection, banner, setBanner }) {

@@ -445,3 +445,27 @@ ul {
 .notes-month section {
   font-size: 28px;
 }
+
+.poll_list {
+  margin-left: 2%;
+  flex-grow: 1;
+  width: 80%;
+}
+
+.poll_form {
+  flex-grow: 1;
+  transition: 0.3s ease;
+  margin-left: 2%;
+  width: 100%;
+}
+
+.create_poll {
+  text-align: center;
+  flex-grow: 1;
+  transition: 0.3s ease;
+  margin-left: 2%;
+}
+
+.AntButton:hover{
+  transform: scale(1);
+}

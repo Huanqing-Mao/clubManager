@@ -1,4 +1,5 @@
 import Home from "./Home";
+import PollPage from "./PollPage";
 
 export default function Body({
   activeSection,
@@ -20,7 +21,7 @@ export default function Body({
   } else if (activeSection === "Attendance") {
     content = <p>This is Attendance page.</p>;
   } else if (activeSection === "Polls") {
-    content = <p>This is Polls page.</p>;
+    content = <PollPage />;
   } else if (activeSection === "Files") {
     content = <p>This is Files page.</p>;
   } else if (activeSection === "Profile") {

@@ -15,5 +15,7 @@ export default function App() {
     return () => subscription.data.subscription.unsubscribe();
   }, [setSession]);
 
-  return <div>{session ? <HomePage /> : <LoginPage />}</div>;
+  return (
+    <div>{session ? <HomePage userID={session.user.id} /> : <LoginPage />}</div>
+  );
 }

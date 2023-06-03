@@ -1,10 +1,13 @@
 import Home from "./Home";
+import CompleteProfile from "./CompleteProfile";
+import Profile from "./Profile";
 
 export default function Body({
   activeSection,
   setActiveSection,
   banner,
-  setBanner
+  setBanner,
+  userID
 }) {
   let content;
 
@@ -24,7 +27,7 @@ export default function Body({
   } else if (activeSection === "Files") {
     content = <p>This is Files page.</p>;
   } else if (activeSection === "Profile") {
-    content = <p>This is your personal profile page.</p>;
+    content = <Profile userID={userID} />;
   } else if (activeSection === "Announcements") {
     content = <p>This is announcements page.</p>;
   }

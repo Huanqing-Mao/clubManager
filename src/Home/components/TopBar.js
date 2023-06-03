@@ -1,20 +1,23 @@
 import logo from "./cm.png";
 import { supabase } from "../../supabase";
+import FetchName from "./FetchName";
+import { UserOutlined } from "@ant-design/icons";
 
-const handleSignOut = async () => {
+/*const handleSignOut = async () => {
   try {
     await supabase.auth.signOut();
   } catch (error) {
     console.error("Error signing out:", error.message);
   }
-};
+};*/
 
 export default function TopBar({
   setActiveSection,
   activeSection,
   banner,
   setBanner,
-  handleBackNav
+  handleBackNav,
+  userID
 }) {
   function goHome() {
     setActiveSection("Home");
@@ -48,13 +51,10 @@ export default function TopBar({
         <div>
           <img src={logo} alt="logo" className="logo" onClick={goHome} />
           <h1 className="banner">{banner}</h1>
-
           <a onClick={goProfile} className="profile">
-            Member #12345
+            <UserOutlined />
+            <FetchName userID={userID} />
           </a>
-          <button className="logOut" type="submit" onClick={handleSignOut}>
-            Log Out
-          </button>
         </div>
       </div>
       <hr />

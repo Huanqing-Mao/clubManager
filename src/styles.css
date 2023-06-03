@@ -28,6 +28,14 @@ input {
   transition: 0.2s ease;
 }
 
+.profileInput {
+  width: 250px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid rgb(226, 226, 226);
+}
+
 input:hover {
   border: 2px solid rgb(7, 98, 202);
 }
@@ -355,24 +363,13 @@ hr {
 
 .profile {
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: 20px;
+  right: 30px;
   transition: 0.3s ease;
 }
 
 .profile:hover {
   transform: scale(1.1);
-}
-
-.logOut {
-  position: absolute;
-  top: 48px;
-  right: 20px;
-  width: 0.3;
-  margin-bottom: 2%;
-  padding-left: 5%;
-  padding-right: 5%;
-  font-family: "Raleway", sans-serif;
 }
 
 .body {
@@ -461,4 +458,34 @@ ul {
 }
 .notes-month section {
   font-size: 28px;
+}
+
+.profileChangeButton {
+  font-family: "Raleway", sans-serif;
+  margin-top: 0.5%;
+  /*margin-bottom: 20px;*/
+  width: 250px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.logOut {
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 20px;
+  width: 250px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.info {
+  font-family: "Raleway";
+  color: black;
+}
+
+.CompletedProfile {
+  margin-bottom: 30px;
 }

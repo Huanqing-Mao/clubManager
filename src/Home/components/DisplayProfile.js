@@ -58,10 +58,6 @@ export default function UpdateProfile({ userID }) {
       </Card>
       <br />
 
-      <Card title="Faculty" size="small">
-        <p className="info">{data ? data.faculty : "Loading..."} </p>
-      </Card>
-      <br />
       <Card title="Prior Experience" size="small">
         <p className="info">{data ? data.prior_experience : "Loading..."} </p>
       </Card>

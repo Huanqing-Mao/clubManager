@@ -1,100 +1,64 @@
-import { Tag, Calendar } from 'antd';
+import { Tag, Calendar } from "antd";
+import { useState, useEffect } from "react";
+import { supabase } from "../../supabase";
 
-const getListData = (value) => { // edit such that it use year month day to find data
-    let listData;   // seems like 'value' here is a dayjs object
-    switch (value.date()) { // try value.year()
-      case 8:
-        listData = [
-          {
-            type: 'warning',
-            content: 'This is warning event.',
-          },
-          {
-            type: 'success',
-            content: 'This is usual event.',
-          },
-        ];
-        break;
-      case 10:
-        listData = [
-          {
-            type: 'warning',
-            content: 'This is warning event.',
-          },
-          {
-            type: 'success',
-            content: 'This is usual event.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event.',
-          },
-        ];
-        break;
-      case 15:
-        listData = [
-          {
-            type: 'warning',
-            content: 'This is warning event',
-          },
-          {
-            type: 'success',
-            content: 'This is very long usual event。。....',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 1.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 2.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 3.',
-          },
-          {
-            type: 'error',
-            content: 'This is error event 4.',
-          },
-        ];
-        break;
-      default:
-    }
-    return listData || [];
+const getMonthData = (value) => {
+  if (value.month() === 8) {
+    return 1394;
+  }
+};
+
+function Timeline() {
+  const [events, setEvents] = useState([]);
+
+  async function fetchEvents() {
+    let { data: es, error } = await supabase.from("Events").select("*");
+    setEvents(es);
+    console.log(events);
+  }
+
+  useEffect(() => {
+    fetchEvents();
+    console.log("current events");
+    console.log(events);
+  }, []);
+
+  function getListData(value) {
+    console.log(value);
+    console.log("current date");
+    let dayEvents = events.filter(
+      (item) => item.date_time === value.format("YYYY-MM-DD")
+    );
+    return dayEvents || [];
+  }
+
+  const monthCellRender = (value) => {
+    const num = getMonthData(value);
+    return num ? (
+      <div className="notes-month">
+        <section>{num}</section>
+        <span>Backlog number</span>
+      </div>
+    ) : null;
   };
-  const getMonthData = (value) => {
-    if (value.month() === 8) {
-      return 1394;
-    }
+
+  const dateCellRender = (value) => {
+    const listData = getListData(value);
+    return (
+      <ul className="events">
+        {listData.map((item) => (
+          <li key={item.content}>
+            <Tag className={item.type}>{item.event_name}</Tag>
+          </li>
+        ))}
+      </ul>
+    );
   };
-  function Timeline() {
-    const monthCellRender = (value) => {
-      const num = getMonthData(value);
-      return num ? (
-        <div className="notes-month">
-          <section>{num}</section>
-          <span>Backlog number</span>
-        </div>
-      ) : null;
-    };
-    const dateCellRender = (value) => { 
-      const listData = getListData(value);
-      return (
-        <ul className="events">
-          {listData.map((item) => (
-            <li key={item.content}>
-              <Tag status={item.type} text={item.content}>{item.type}</Tag>
-            </li>
-          ))}
-        </ul>
-      );
-    };
-    const cellRender = (current, info) => {
-      if (info.type === 'date') return dateCellRender(current); 
-      if (info.type === 'month') return monthCellRender(current);
-      return info.originNode;
-    };
-    return <div><Calendar cellRender={cellRender}/></div>;
+  const cellRender = (current, info) => {
+    if (info.type === "date") return dateCellRender(current);
+    if (info.type === "month") return monthCellRender(current);
+    return info.originNode;
   };
-  export default Timeline;
+  return <Calendar cellRender={cellRender} />;
+}
+export default Timeline;

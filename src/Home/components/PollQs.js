@@ -67,7 +67,10 @@ function PollQuestions({ pollID, cID, deletePoll }) {
       setMessage(
         "We have already recorded your response, you could still update your vote before the deadline!"
       );
-    }
+    } else {
+            setVoted("Submit");
+            setMessage("You have not submitted your vote yet, please vote before the deadline!");
+    };
 
     console.log("previous vote");
     console.log(vr);
@@ -107,7 +110,7 @@ function PollQuestions({ pollID, cID, deletePoll }) {
 
   useEffect(() => {
     formStatus(); // Move formStatus() here
-  }, [passedDdl, voted]);
+  }, [passedDdl, voted, vote]);
 
   async function updateVote() {
     if (voted === "Submit") {

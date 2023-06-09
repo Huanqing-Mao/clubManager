@@ -17,7 +17,7 @@ image {
   height: auto;
 }
 
-input {
+.login-input {
   width: 250px;
   height: 40px;
   font-size: 15px;
@@ -28,16 +28,15 @@ input {
   transition: 0.2s ease;
 }
 
+.login-input:hover {
+  border: 2px solid rgb(7, 98, 202);
+}
 .profileInput {
   width: 250px;
   height: 30px;
   border-radius: 5px;
   background-color: white;
   border: 1px solid rgb(226, 226, 226);
-}
-
-input:hover {
-  border: 2px solid rgb(7, 98, 202);
 }
 
 button {
@@ -48,10 +47,6 @@ button {
   border-radius: 10px;
   padding: 0.7em;
   transition: 0.3s ease;
-}
-
-button:hover {
-  transform: scale(1.1);
 }
 
 .topBanner {
@@ -512,4 +507,76 @@ ul {
 
 .AntButton:hover {
   transform: scale(1);
+}
+
+.Button {
+  color: black;
+}
+
+.file-upload-section {
+  margin-top: 5px;
+  width: 50%;
+  padding: 2%;
+}
+
+@media (max-width: 500px) {
+  .file-upload-section {
+    padding-right: 40px;
+    padding-left: 20px;
+  }
+}
+
+.new-folder-button {
+  width: 40%;
+}
+
+@media (max-width: 500px) {
+  .new-folder-button {
+    width: 30%;
+  }
+}
+
+.new-folder-box {
+  width: 40%;
+}
+
+@media (max-width: 500px) {
+  .new-folder-box {
+    width: 70%;
+  }
+}
+
+.folder {
+  margin-top: 5%;
+}
+
+.files-list {
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.files-menu {
+  flex: 0 0 200px;
+}
+
+.files-in-folder {
+  flex: 1;
+
+  padding-left: 5%;
+}
+
+.select-folder {
+  padding: 10%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-folder img {
+  display: block;
+  margin: 0 auto;
+}
+
+.select-folder h1 {
+  text-align: center;
 }

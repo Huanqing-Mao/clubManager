@@ -8,10 +8,10 @@ export default function TextBoxes({ loginStatus, setLoginStatus }) {
   return (
     <div className="textBoxes">
       <p> User Name: </p>
-      <input type="text" />
+      <input className="login-input" type="text" />
 
       <p> Password: </p>
-      <input type="text" />
+      <input className="login-input" type="text" />
       <p> </p>
 
       <button type="submit" onClick={logIn}>

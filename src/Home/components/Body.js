@@ -2,6 +2,7 @@ import Home from "./Home";
 import CompleteProfile from "./CompleteProfile";
 import Profile from "./Profile";
 import PollPage from "./PollPage";
+import FilesMain from "./Files/FilesMain";
 
 export default function Body({
   activeSection,
@@ -26,7 +27,7 @@ export default function Body({
   } else if (activeSection === "Polls") {
     content = <PollPage />;
   } else if (activeSection === "Files") {
-    content = <p>This is Files page.</p>;
+    content = <FilesMain />;
   } else if (activeSection === "Profile") {
     content = <Profile userID={userID} />;
   } else if (activeSection === "Announcements") {

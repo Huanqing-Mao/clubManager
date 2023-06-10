@@ -1,5 +1,5 @@
 {
-  "name": "clubmanager-profile-calendar-poll",
+  "name": "clubmanager-with-files-withdelete",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -8,6 +8,7 @@
     "@supabase/auth-ui-react": "0.4.2",
     "@supabase/supabase-js": "2.22.0",
     "antd": "5.5.1",
+    "csbbust": "1.0.1",
     "loader-utils": "3.2.1",
     "moment": "2.29.4",
     "react": "18.2.0",

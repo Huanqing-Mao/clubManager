@@ -5,6 +5,7 @@ import { supabase } from "../../../supabase";
 export default function SelectFolder({
   defaultValue,
   setDefault,
+  currentFolder,
   toFolder,
   setFolder
 }) {
@@ -31,7 +32,10 @@ export default function SelectFolder({
 
       const folders = data
         .filter((item) => item.name.includes("folder"))
+        .filter((item) => item.name !== currentFolder)
         .map((item) => item.name);
+      console.log(currentFolder);
+      console.log(folders);
       setFolderList(folders);
       console.log("Folders:", folders);
     } catch (error) {
@@ -51,7 +55,10 @@ export default function SelectFolder({
           marginBottom: 0
         }}
         onChange={handleChange}
-        options={folderList.map((item) => ({ value: item, label: item }))}
+        options={folderList.map((item) => ({
+          value: item,
+          label: item.includes("folder-") ? item.replace("folder-", "") : item
+        }))}
         onSelect={handleSelect}
       />
     </Space>

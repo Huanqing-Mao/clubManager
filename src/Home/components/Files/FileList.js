@@ -59,7 +59,7 @@ export default function FileList() {
   return (
     <div>
       <h2>CCA Resources:</h2>
-      <NewFolderPop listFolders={listFolders} />
+      <NewFolderPop listFolders={listFolders} nameList={folderList} />
 
       <div className="files-list">
         <div className="files-menu">

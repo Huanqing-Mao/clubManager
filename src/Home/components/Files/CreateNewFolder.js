@@ -13,7 +13,7 @@ import RadioOptions from "./RadioOptions";
 import { Card } from "antd";
 import ignore from "./ignore";
 
-export default function CreateNewFolder() {
+export default function CreateNewFolder({ nameList }) {
   const [fileName, setFileName] = useState("");
 
   const handleFilenameInputChange = (event) => {
@@ -21,20 +21,29 @@ export default function CreateNewFolder() {
   };
 
   const handleUpload = async () => {
-    const path = "folder-" + fileName;
-    const { data, error } = await supabase.storage
-      .from("cca")
-      .upload(`${path}/ignore`, ignore);
+    if (fileName) {
+      const path = "folder-" + fileName;
+      if (nameList.includes(path)) {
+        console.log(nameList);
+        alert("Name already exists!");
+      } else {
+        const { data, error } = await supabase.storage
+          .from("cca")
+          .upload(`${path}/ignore`, ignore);
 
-    if (error) {
-      console.error("Error uploading file:", error);
-      //alert("Error! You might have uploaded the same file twice!");
+        if (error) {
+          console.error("Error uploading file:", error);
+          //alert("Error! You might have uploaded the same file twice!");
+        } else {
+          console.log("Folder Created successfully");
+          alert("Success!");
+        }
+
+        setFileName("");
+      }
     } else {
-      console.log("Folder Created successfully");
-      alert("Success!");
+      alert("Folder Name cannot be empty!");
     }
-
-    setFileName("");
   };
 
   return (

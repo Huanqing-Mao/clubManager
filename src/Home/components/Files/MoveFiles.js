@@ -31,6 +31,7 @@ export default function MoveFiles({ folderName, fileName }) {
       <SelectFolder
         defaultValue={defaultValue}
         setDefault={setDefaultValue}
+        currentFolder={folderName}
         toFolder={toFolder}
         setFolder={setToFolder}
       />

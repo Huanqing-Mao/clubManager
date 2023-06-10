@@ -27,6 +27,8 @@ export default function UploadInFolder({ folderName }) {
         console.log("File uploaded successfully");
         alert("Upload Success!");
       }
+    } else {
+      alert("No file chosen!");
     }
 
     setSelectedFile(null);

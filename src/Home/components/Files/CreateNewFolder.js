@@ -54,10 +54,15 @@ export default function CreateNewFolder({ nameList }) {
         maxLength="20"
         onChange={handleFilenameInputChange}
         value={fileName}
+        style={{
+          width: "100%"
+        }}
       />
+      <p></p>
       <Button type="default" onClick={handleUpload}>
         Create
       </Button>
+      <p></p>
     </div>
   );
 }

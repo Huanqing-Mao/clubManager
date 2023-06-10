@@ -21,7 +21,7 @@ export default function NewFolderPop({ listFolders, nameList }) {
             <a onClick={hide}>Close</a>
           </div>
         }
-        title="Upload New File"
+        title="New Folder"
         trigger="click"
         open={open}
         onOpenChange={handleOpenChange}

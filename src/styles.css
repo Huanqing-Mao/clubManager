@@ -375,6 +375,16 @@ hr {
 .body {
   margin-left: 5%;
   margin-right: 5%;
+  margin-top: 220px;
+}
+
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  background-color: #FFFFFF;
+  top: 0;
+  width: 100%;
+  z-index: 9998!important;
 }
 
 @media (max-width: 767px) {
@@ -513,3 +523,18 @@ ul {
 .AntButton:hover {
   transform: scale(1);
 }
+
+.event_list {
+  margin-left: 2%;
+  flex-grow: 1;
+  width: 50%;
+}
+
+.event_details {
+  flex-grow: 1;
+  transition: 0.3s ease;
+  margin-left: 2%;
+  width: 100%;
+  position: sticky;
+}
+

@@ -4,6 +4,7 @@ import { supabase } from "../../supabase";
 import CreateEvent from './CreateEvent';
 import EventDetails from "./EventDetails";
 import { fetchEvents, newEvent, deleteEvent } from "./EventsAPI";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 
 function Timeline( { currentID } ) {
@@ -30,7 +31,7 @@ function Timeline( { currentID } ) {
   async function fetchEvents() {
     let { data: es, error } = await supabase.from("Events").select("*");
     setEvents(es);
-    console.log(events);
+    //console.log(events);
   }
 
   async function newEvent(values) {
@@ -44,6 +45,7 @@ function Timeline( { currentID } ) {
   */
 
   useEffect(() => {
+
     const data = fetchEvents().then((value) => setEvents(value));
     //console.log(data);
     //setEvents(data);
@@ -70,6 +72,7 @@ function Timeline( { currentID } ) {
       return dayEvents;
     } else {
     console.log("current date");
+
     let dayEvents = events.filter(
       (item) => item.date_time === value.format("YYYY-MM-DD")
     );
@@ -122,7 +125,9 @@ function Timeline( { currentID } ) {
         open={open}
         onOpenChange={handleOpenChange}
       >
-        <Button className="AntButton" type="primary">Create Event</Button>
+        <Button className="AntButton" icon=<PlusCircleOutlined />>
+          Create Event
+        </Button>
       </Popover>
       <Calendar cellRender={cellRender} />
     </div>

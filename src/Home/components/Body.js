@@ -5,6 +5,9 @@ import PollPage from "./PollPage";
 import AttendancePage from "./AttendancePage";
 import { useState, useEffect } from 'react';
 import { supabase } from "../../supabase";
+import FilesMain from "./Files/FilesMain";
+import AnnMain from "./Announcements/AnnMain";
+
 
 export default function Body({
   activeSection,
@@ -35,7 +38,8 @@ export default function Body({
         activeSection={activeSection}
         banner={banner}
         setBanner={setBanner}
-        currentID={currentID}
+        userID={userID}
+
       />
     );
   } else if (activeSection === "Attendance") {
@@ -43,11 +47,11 @@ export default function Body({
   } else if (activeSection === "Polls") {
     content = <PollPage />;
   } else if (activeSection === "Files") {
-    content = <p>This is Files page.</p>;
+    content = <FilesMain />;
   } else if (activeSection === "Profile") {
     content = <Profile userID={userID} />;
   } else if (activeSection === "Announcements") {
-    content = <p>This is announcements page.</p>;
+    content = <AnnMain userID={userID} />;
   }
 
   return <div className="main">{content}</div>;

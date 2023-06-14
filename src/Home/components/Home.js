@@ -1,7 +1,10 @@
-import { Divider } from "antd";
+import { Divider, Card } from "antd";
 import Timeline from "./Timeline";
+import AnnMain from "./Announcements/AnnMain";
 
-function Home({ setActiveSection, activeSection, banner, setBanner, currentID, fetchEvents, newEvent }) {
+
+function Home({ setActiveSection, activeSection, banner, setBanner, userID, fetchEvents, newEvent }) {
+
   function goAnn() {
     setActiveSection("Announcements");
     setBanner("Announcements");
@@ -9,13 +12,31 @@ function Home({ setActiveSection, activeSection, banner, setBanner, currentID, f
   return (
     <div className="flex-container">
       <div className="calendar">
-        <div className="timeline">Event Timeline</div>
-        <Timeline currentID={currentID} />
+        <Card
+          style={{
+            height: 70,
+            fontSize: 18,
+            backgroundColor: "rgba(7, 133, 165, 0.1)"
+          }}
+        >
+          <div className="timeline">Event Timeline</div>
+        </Card>
+        <Timeline currentID={userID} />
       </div>
       <div className="AnnSection">
-        <div onClick={goAnn} className="announcement">
-          Recent Announcements
-        </div>
+        <Card
+          style={{
+            height: 70,
+            fontSize: 18,
+            backgroundColor: "rgba(7, 133, 165, 0.1)"
+          }}
+        >
+          <div onClick={goAnn} className="announcement">
+            Recent Announcements
+            <p></p>
+          </div>
+        </Card>
+        <AnnMain userID={userID} />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ function Home({ setActiveSection, activeSection, banner, setBanner, userID }) {
         >
           <div className="timeline">Event Timeline</div>
         </Card>
+        <p></p>
         <Timeline />
       </div>
       <div className="AnnSection">

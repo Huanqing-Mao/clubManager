@@ -1,8 +1,8 @@
 import { Card, Button, Popover } from "antd";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase";
-import PollQuestions from "./PollQs";
-import CreatePoll from "./CreatePoll";
+import PollQuestions from "./Polls/PollQs";
+import CreatePoll from "./Polls/CreatePoll";
 import moment from "moment";
 
 function PollPage() {

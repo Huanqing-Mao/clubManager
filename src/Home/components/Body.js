@@ -2,8 +2,11 @@ import Home from "./Home";
 import CompleteProfile from "./CompleteProfile";
 import Profile from "./Profile";
 import PollPage from "./PollPage";
+import AttendancePage from "./AttendancePage";
 import FilesMain from "./Files/FilesMain";
 import AnnMain from "./Announcements/AnnMain";
+import { useState, useEffect } from 'react';
+import { supabase } from "../../supabase";
 
 export default function Body({
   activeSection,
@@ -25,7 +28,7 @@ export default function Body({
       />
     );
   } else if (activeSection === "Attendance") {
-    content = <p>This is Attendance page.</p>;
+    content = content = <AttendancePage currentID={userID} />;
   } else if (activeSection === "Polls") {
     content = <PollPage />;
   } else if (activeSection === "Files") {

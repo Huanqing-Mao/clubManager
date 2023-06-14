@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../../supabase";
+import { supabase } from "../../../supabase";
 import { Form, Radio, Button } from "antd";
 import moment from "moment";
 

@@ -44,16 +44,6 @@ function Timeline( { currentID } ) {
   }
   */
 
-  async function newEvent(values) {
-    const { nerror } = await supabase.from("Events").insert({
-      created_by: currentID,
-      date_time: values.date_time,
-      event_name: values.event_name,
-      details: values.details
-    });
-  }
-  */
-
   useEffect(() => {
     const data = fetchEvents().then((value) => setEvents(value));
     //console.log(data);

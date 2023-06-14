@@ -34,7 +34,7 @@ function PollPage() {
       .is("active", true)
       .order("deadline", { ascending: false });
     setPolls(Polls);
-    console.log(polls);
+    //console.log(polls);
   }
 
   async function getUserID() {
@@ -42,15 +42,15 @@ function PollPage() {
       data: { user }
     } = await supabase.auth.getUser();
     setCurrentID(user.id);
-    console.log(currentID);
+    //console.log(currentID);
   }
 
   useEffect(() => {
     fetchData();
     getUserID();
-    console.log(currentID);
-    console.log(polls);
-    console.log("here");
+    //console.log(currentID);
+    //console.log(polls);
+    //console.log("here");
   }, [deletePoll, newPoll]);
 
   const choosePoll = useCallback(
@@ -90,8 +90,8 @@ function PollPage() {
         question: values.question
       })
       .order("created_at", { ascending: false });
-    console.log(newPollID);
-    console.log(newPollID[0].id);
+    //console.log(newPollID);
+    //console.log(newPollID[0].id);
     //await setTemPollID(newPollID[0].id);
     //console.log('new poll id:', temPollID);
     createNewOptions(values, newPollID[0].id);

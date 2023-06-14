@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../../supabase";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, message } from "antd";
 
 import { Card } from "antd";
 
@@ -25,10 +25,10 @@ export default function UploadInFolder({ folderName }) {
         //alert("Error! You might have uploaded the same file twice!");
       } else {
         console.log("File uploaded successfully");
-        alert("Upload Success!");
+        message.success("Upload Success!");
       }
     } else {
-      alert("No file chosen!");
+      message.error("No file chosen!");
     }
 
     setSelectedFile(null);

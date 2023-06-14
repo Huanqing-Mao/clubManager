@@ -3,7 +3,7 @@ import { Menu, Divider } from "antd";
 export default function FilesMenu({ items, setFolderName }) {
   const Vert = () => {
     const onClick = (e) => {
-      console.log("click ", e);
+      //console.log("click ", e);
     };
     const onSelect = (item) => {
       setFolderName(item.key);

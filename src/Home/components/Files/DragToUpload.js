@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Upload } from "antd";
+import { Button, Upload, message } from "antd";
 import { useState } from "react";
 import { supabase } from "../../../supabase";
 
@@ -29,7 +29,7 @@ export default function DragToUpload({
         //alert("Error! You might have uploaded the same file twice!");
       } else {
         console.log("File uploaded successfully");
-        alert("Upload Success!");
+        message.success("Upload Success!");
       }
     }
     setFileName("");

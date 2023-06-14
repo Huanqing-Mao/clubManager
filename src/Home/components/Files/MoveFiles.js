@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { supabase } from "../../../supabase";
 import SelectFolder from "./SelectFolder";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export default function MoveFiles({ folderName, fileName }) {
   const [toFolder, setToFolder] = useState("");
@@ -17,7 +17,7 @@ export default function MoveFiles({ folderName, fileName }) {
         console.log(folderName, fileName);
         console.log(toFolder, fileName);
 
-        alert("File moved successfully");
+        message.success("File moved successfully");
         // Handle the success case
       }
     } catch (error) {

@@ -25,7 +25,7 @@ export default function CreateNewFolder({ nameList }) {
       const path = "folder-" + fileName;
       if (nameList.includes(path)) {
         console.log(nameList);
-        alert("Name already exists!");
+        message.error("Name already exists!");
       } else {
         const { data, error } = await supabase.storage
           .from("cca")
@@ -36,13 +36,13 @@ export default function CreateNewFolder({ nameList }) {
           //alert("Error! You might have uploaded the same file twice!");
         } else {
           console.log("Folder Created successfully");
-          alert("Success!");
+          message.success("Success!");
         }
 
         setFileName("");
       }
     } else {
-      alert("Folder Name cannot be empty!");
+      message.error("Folder Name cannot be empty!");
     }
   };
 

@@ -1,4 +1,4 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 import { useState } from "react";
 import { supabase } from "../../../supabase";
 
@@ -34,7 +34,7 @@ export default function FolderDelete({
       await supabase.storage.from("cca").remove([folderName]);
 
       console.log("Folder deleted successfully");
-      alert("Folder deleted!");
+      message.success("Folder deleted!");
       // Handle the success case
     } catch (error) {
       console.error("Error deleting folder:", error.message);

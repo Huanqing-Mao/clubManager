@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 //import { supabase } from "../../supabase";
 import { Card, Space, Timeline, Popover, Button } from 'antd';
-import CreateEvent from './CreateEvent';
-import EventDetails from "./EventDetails";
-import { fetchEvents, newEvent, deleteEvent } from "./EventsAPI";
+import CreateEvent from './Events/CreateEvent';
+import EventDetails from "./Events/EventDetails";
+import { fetchEvents, newEvent, deleteEvent } from "./Events/EventsAPI";
 
 
 function AttendancePage( { currentID } ) {

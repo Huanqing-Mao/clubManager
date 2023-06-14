@@ -584,3 +584,17 @@ ul {
 .select-folder h1 {
   text-align: center;
 }
+
+.event_list {
+  margin-left: 2%;
+  flex-grow: 1;
+  width: 50%;
+}
+
+.event_details {
+  flex-grow: 1;
+  transition: 0.3s ease;
+  margin-left: 2%;
+  width: 100%;
+  position: sticky;
+}

@@ -14,18 +14,18 @@ function Timeline() {
   async function fetchEvents() {
     let { data: es, error } = await supabase.from("Events").select("*");
     setEvents(es);
-    console.log(events);
+    //console.log(events);
   }
 
   useEffect(() => {
     fetchEvents();
-    console.log("current events");
-    console.log(events);
+    //console.log("current events");
+    //console.log(events);
   }, []);
 
   function getListData(value) {
-    console.log(value);
-    console.log("current date");
+    //console.log(value);
+    //console.log("current date");
     let dayEvents = events.filter(
       (item) => item.date_time === value.format("YYYY-MM-DD")
     );

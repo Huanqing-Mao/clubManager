@@ -9,7 +9,6 @@
 
 body {
   background-color: white;
-  /*background-color: rgb(44, 65, 63);*/
 }
 
 image {
@@ -413,28 +412,19 @@ hr {
 
 .timeline {
   transition: 0.3s ease;
-  text-align: center;
+
   flex-grow: 1;
   margin-left: 2%;
-}
-
-.timeline:hover {
-  transform: scale(1.04);
 }
 
 .announcement {
-  text-align: center;
   flex-grow: 1;
-  transition: 0.3s ease;
-  margin-left: 2%;
-}
-
-.announcement:hover {
-  transform: scale(1.04);
 }
 
 .AnnSection {
   flex-grow: 1;
+  width: 300px;
+  margin-left: 70px;
 }
 
 ul {

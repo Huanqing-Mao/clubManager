@@ -5,7 +5,7 @@ import {
   CloudDownloadOutlined,
   DeleteOutlined
 } from "@ant-design/icons";
-import { Divider, List, Button, Skeleton } from "antd";
+import { Divider, List, Button, Spin, message, Popconfirm } from "antd";
 import UploadPop from "./UploadPop";
 import DeleteFolders from "./DeleteFolder";
 import MovePop from "./MovePop";
@@ -16,7 +16,10 @@ export default function FilesInFolder({
   setFolderName
 }) {
   const [fileList, setFileList] = useState([]);
-
+  const cancel = (e) => {
+    //console.log(e);
+    message.error("Delete action cancelled");
+  };
   async function fetchFiles() {
     try {
       const { data, error } = await supabase.storage
@@ -40,7 +43,7 @@ export default function FilesInFolder({
         .download(`${folderName}/${item}`);
       console.log("success!");
 
-      alert("Start Downloading...");
+      message.success("Start Downloading...");
       const blob = new Blob([data], { type: data.type });
 
       // Generate a URL for the Blob
@@ -72,7 +75,7 @@ export default function FilesInFolder({
       }
 
       console.log("File deleted successfully");
-      alert("Deleted!");
+      message.success("File Deleted");
       fetchFiles();
     } catch (error) {
       console.error("Error deleting file:", error.message);
@@ -86,8 +89,9 @@ export default function FilesInFolder({
     .filter((item) => item.name !== ".emptyFolderPlaceholder")
     .filter((item) => item.name !== "ignore");
 
-  console.log(data.map((item) => item.name));
-  console.log(data.filter((item) => item.name !== "ignore"));
+  //console.log(folderName);
+  //console.log(data.map((item) => item.name));
+  //console.log(data.filter((item) => item.name !== "ignore"));
   return (
     <div>
       <Divider orientation="left" orientationMargin="0">
@@ -122,12 +126,16 @@ export default function FilesInFolder({
                   >
                     Download
                   </Button>,
-                  <Button
-                    icon=<DeleteOutlined />
-                    onClick={() => deleteFile(item.name)}
+                  <Popconfirm
+                    title="Delete the file"
+                    description="Are you sure to delete this file?"
+                    onConfirm={() => deleteFile(item.name)}
+                    onCancel={cancel}
+                    okText="Delete"
+                    cancelText="Cancel"
                   >
-                    Delete
-                  </Button>,
+                    <Button icon=<DeleteOutlined />>Delete</Button>
+                  </Popconfirm>,
                   <MovePop
                     folderName={folderName}
                     fileName={item.name}
@@ -160,7 +168,11 @@ export default function FilesInFolder({
               ? folderName.replace("folder-", "")
               : folderName}
           </h2>
-          <List bordered itemLayout="vertical" dataSource={[]} />
+          <div style={{ marginTop: "100px" }}>
+            <Spin tip="Loading" size="large">
+              <div className="content" />
+            </Spin>
+          </div>
         </div>
       )}
     </div>

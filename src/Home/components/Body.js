@@ -8,6 +8,7 @@ import AnnMain from "./Announcements/AnnMain";
 import { useState, useEffect } from 'react';
 import { supabase } from "../../supabase";
 
+
 export default function Body({
   activeSection,
   setActiveSection,
@@ -16,6 +17,7 @@ export default function Body({
   userID
 }) {
   let content;
+  
 
   if (activeSection === "Home") {
     content = (
@@ -25,10 +27,11 @@ export default function Body({
         banner={banner}
         setBanner={setBanner}
         userID={userID}
+
       />
     );
   } else if (activeSection === "Attendance") {
-    content = content = <AttendancePage currentID={userID} />;
+    content = <AttendancePage currentID={userID} />;
   } else if (activeSection === "Polls") {
     content = <PollPage />;
   } else if (activeSection === "Files") {

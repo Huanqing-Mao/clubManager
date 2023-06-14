@@ -9,6 +9,7 @@ function HomePage({ handleBackNav, userID }) {
 
   return (
     <div className="HomePage">
+      <div className='navbar'>
       <TopBar
         setActiveSection={setActiveSection}
         activeSection={activeSection}
@@ -17,6 +18,7 @@ function HomePage({ handleBackNav, userID }) {
         handleBackNav={handleBackNav}
         userID={userID}
       />
+      </div>
 
       <div className="body">
         <Body

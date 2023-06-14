@@ -17,19 +17,7 @@ export default function Body({
   userID
 }) {
   let content;
-  const [currentID, setCurrentID] = useState('');
-
-  async function getUserID() {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
-    setCurrentID(user.id);
-    console.log(currentID);
-  }
-
-  useEffect(() => {
-    getUserID();
-  }, []);
+  
 
   if (activeSection === "Home") {
     content = (

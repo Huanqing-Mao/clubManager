@@ -131,6 +131,7 @@ function PollPage() {
                   {moment().isAfter(moment(item.deadline)) ? "Closed" : ""}
                 </font>
               </Card>
+              <br></br>
             </li>
           ))}
         </ul>

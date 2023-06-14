@@ -2,7 +2,9 @@ import { Divider, Card } from "antd";
 import Timeline from "./Timeline";
 import AnnMain from "./Announcements/AnnMain";
 
-function Home({ setActiveSection, activeSection, banner, setBanner, userID }) {
+
+function Home({ setActiveSection, activeSection, banner, setBanner, userID, fetchEvents, newEvent }) {
+
   function goAnn() {
     setActiveSection("Announcements");
     setBanner("Announcements");
@@ -19,7 +21,7 @@ function Home({ setActiveSection, activeSection, banner, setBanner, userID }) {
         >
           <div className="timeline">Event Timeline</div>
         </Card>
-        <Timeline />
+        <Timeline currentID={userID} />
       </div>
       <div className="AnnSection">
         <Card

@@ -50,6 +50,7 @@ function CreateEvent( { currentID, newEvent, hide } ) {
     function onFinish(values) {
         console.log('Received values of form:', values);
         newEvent(values, currentID);
+        hide();
     };
 
   return (
@@ -67,17 +68,29 @@ function CreateEvent( { currentID, newEvent, hide } ) {
         span: 16,
       }}
     >
-      <Form.Item label="Event name" name="event_name">
+      <Form.Item label="Event name" name="event_name" rules={[
+        {
+          required: true,
+          message: 'This field is required.',
+        },]}>
         <Input placeholder="Enter the event name" />
       </Form.Item>
-      <Form.Item label="Event details" name="details">
+      <Form.Item label="Event details" name="details" rules={[
+        {
+          required: true,
+          message: 'This field is required.',
+        },]} >
       <TextArea rows={4} placeholder="Please enter the event details"/>
       </Form.Item>
-      <Form.Item label="Event Date" name="date_time">
+      <Form.Item label="Event Date" name="date_time" rules={[
+        {
+          required: true,
+          message: 'This field is required.',
+        },]} >
         <DatePicker onChange={onChange} onOk={onOk} />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="AntButton" onClick={hide}>
+        <Button type="primary" htmlType="submit" className="AntButton">
           Create
         </Button>
       </Form.Item>

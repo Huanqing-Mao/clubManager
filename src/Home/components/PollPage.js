@@ -13,6 +13,7 @@ function PollPage() {
   const [currentID, setCurrentID] = useState("");
   const [temPollID, setTemPollID] = useState("");
   const [open, setOpen] = useState(false);
+  const [load, setLoad] = useState('loading');
   //const { pollstack, setPollstack } = useState(null);
 
   const hide = () => {
@@ -34,6 +35,7 @@ function PollPage() {
       .is("active", true)
       .order("deadline", { ascending: false });
     setPolls(Polls);
+    setLoad('loaded');
     //console.log(polls);
   }
 
@@ -60,10 +62,29 @@ function PollPage() {
     [choice]
   );
 
-  if (!polls.length) {
+  if (load === 'loading') {
     return (
       <div>
-        <p>There are no polls yet.</p>
+        <h2>Loading...</h2>
+      </div>
+    )
+  } else if (load === 'loaded' && !polls.length) {
+    return (
+      <div className="flex-container">
+        <div className="no_poll">
+          <p>There are no polls yet.</p>
+        </div>
+        <div className="create_poll">
+        <Popover
+          title="Create new poll"
+          trigger="click"
+          content={content}
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <Button className="AntButton">Create Poll</Button>
+        </Popover>
+      </div>
       </div>
     );
   }

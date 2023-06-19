@@ -3,9 +3,10 @@ import { supabase } from "../../../supabase";
 import { Checkbox, Divider, Button, message } from "antd";
 
 function EventDetails({ eventID, currentID, deleteEvent }) {
-  const [event, setEvent] = useState(null);
-  const [attend, setAttend] = useState(false);
-  const [record, setRecord] = useState(null);
+    const [event, setEvent] = useState('null');
+    const [attend, setAttend] = useState(false);
+    const [record, setRecord] = useState(null);
+    const [load, setLoad] = useState('loading');
 
   async function fetchData() {
     let { data: evs, error } = await supabase
@@ -19,24 +20,27 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
     console.log(event);
   }
 
-  async function getAttendance() {
-    const { data: at, aerror } = await supabase
-      .from("Attendance")
-      .select("*")
-      .match({
-        event_id: eventID,
-        member_id: currentID
-      });
-    console.log(currentID);
-    console.log("current id");
-    console.log(at);
-    console.log("attendance status");
-    if (at !== null && at[0] !== undefined) {
-      setAttend(at[0].attending);
-      setRecord(true);
-    } else {
-      setAttend(false);
-      setRecord(false);
+
+    async function getAttendance() {
+        const { data: at, aerror } = await supabase
+          .from("Attendance")
+          .select("*")
+          .match({
+            event_id: eventID,
+            member_id: currentID
+          });
+          console.log(currentID);
+          console.log('current id');
+        console.log(at);
+        console.log('attendance status')
+        if (at !== null && at[0] !== undefined) {
+          setAttend(at[0].attending);
+          setRecord(true);
+        } else {
+          setAttend(false);
+          setRecord(false);
+        };
+        setLoad('loaded');
     }
   }
 
@@ -48,6 +52,7 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
   useEffect(() => {
     getAttendance();
   }, [eventID, attend]);
+
 
   async function onChange(e) {
     const updatedAtt = !attend;
@@ -71,7 +76,7 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
       });
       message.success("Your response has been recorded!");
     }
-  }
+  };
 
   if (eventID === null || event === null) {
     return (
@@ -79,7 +84,13 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
         <h2>Please select an event.</h2>
       </div>
     );
-  } else {
+  } else if (load === 'loading') {
+      return (
+        <div>
+          <h2>Loading...</h2>
+        </div>
+      )
+   } else {
     return (
       <div>
         <h2>{event.event_name}</h2>

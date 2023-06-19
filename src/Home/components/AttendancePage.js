@@ -7,6 +7,7 @@ import { fetchEvents, newEvent, deleteEvent } from "./Events/EventsAPI";
 
 
 function AttendancePage( { currentID } ) {
+    const [load, setLoad] = useState('loading');
     const [events, setEvents] = useState([]);
     const [eventID, setEventID] = useState(null);
     const [open, setOpen] = useState(false);
@@ -52,7 +53,9 @@ function AttendancePage( { currentID } ) {
     */
 
     useEffect(() => {
-        fetchEvents().then((value) => setEvents(value));
+        fetchEvents().then((value) => {
+            setEvents(value);
+            setLoad('loaded');});
         console.log(events);
         console.log(currentID);
         console.log('member')
@@ -65,6 +68,33 @@ function AttendancePage( { currentID } ) {
         },
         [eventID]
     );
+
+    if (load === 'loading') {
+        return (
+            <div>
+                <h2>Loading...</h2>
+            </div>
+        )
+    } else if (load === 'loaded' && !events.length) {
+        return (
+            <div className="flex-container">
+                <div className="no_poll">
+                    <h2>There are no events yet!</h2>
+                </div>
+                <div className='create_event'>
+                    <Popover
+                    title="Create new event"
+                    trigger="click"
+                    content={content}
+                    open={open}
+                    onOpenChange={handleOpenChange}
+                    >
+                        <Button className="AntButton" type="primary">Create Event</Button>
+                    </Popover>
+                </div>
+            </div>
+        )
+    }
 
     function deleteThisEvent(num) {
         deleteEvent(num);

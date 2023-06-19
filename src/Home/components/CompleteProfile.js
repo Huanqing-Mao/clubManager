@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../../supabase";
 import SelectFaculty from "./SelectFaculty";
 import SelectPE from "./SelectPE";
+import { message } from "antd";
 
 export default function CompleteProfile({ userID }) {
   const [email, setEmail] = useState("");
@@ -9,6 +10,16 @@ export default function CompleteProfile({ userID }) {
   const [year, setYear] = useState("");
   const [faculty, setFaculty] = useState("");
   const [pe, setPE] = useState("");
+
+  const handleSignOut = async () => {
+    console.log(userID);
+    try {
+      await supabase.auth.signOut();
+      console.log("Success signing out!");
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+  };
 
   async function updateInformation(event) {
     event.preventDefault(); // Prevent form submission behavior
@@ -21,7 +32,7 @@ export default function CompleteProfile({ userID }) {
       faculty === "" ||
       pe === ""
     ) {
-      alert("Please fill in all the fields!");
+      message.error("Please fill in all the fields!");
     } else {
       const { error } = await supabase.from("users").insert({
         user_id: userID,
@@ -36,7 +47,7 @@ export default function CompleteProfile({ userID }) {
         console.error("Error inserting data: ", error);
       } else {
         console.log("Data inserted successfully");
-        alert("Information updated successfully! ");
+        message.success("Information updated successfully! ");
         window.location.reload(true);
       }
 
@@ -114,7 +125,11 @@ export default function CompleteProfile({ userID }) {
           >
             Submit Information
           </button>
+          <p></p>
         </form>
+        <button className="logOut" type="submit" onClick={handleSignOut}>
+          Log Out
+        </button>
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import CompleteProfile from "./CompleteProfile";
 import UpdateProfile from "./UpdateProfile";
 import DisplayProfile from "./DisplayProfile";
 import CompletedProfile from "./CompletedProfile";
+import { Spin } from "antd";
 
 async function fetchUsernameById(userId) {
   try {
@@ -34,6 +35,8 @@ export default function Profile({ userID }) {
       const username = await fetchUsernameById(userID);
       if (username) {
         setName(username);
+      } else {
+        setName("undefined");
       }
     };
 
@@ -41,6 +44,12 @@ export default function Profile({ userID }) {
   }, [userID]);
 
   return name === "User" ? (
+    <div style={{ marginTop: "100px" }}>
+      <Spin tip="Loading" size="large">
+        <div className="content" />
+      </Spin>
+    </div>
+  ) : name === "undefined" ? (
     <div>
       <CompleteProfile userID={userID} />
     </div>

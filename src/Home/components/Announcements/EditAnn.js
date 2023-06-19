@@ -3,7 +3,7 @@ import { supabase } from "../../../supabase";
 import { Input, Button, message } from "antd";
 const { TextArea } = Input;
 
-export default function EditAnn({ content, title, annID, hide }) {
+export default function EditAnn({ content, title, annID, hide, userID }) {
   const [displayContent, setDisplayContent] = useState(content);
   const [displayTitle, setDisplayTitle] = useState(title);
   const handleTitleChange = (event) => {
@@ -14,19 +14,15 @@ export default function EditAnn({ content, title, annID, hide }) {
     setDisplayContent(event.target.value);
   };
 
-  /*const handleNewLine = (event) => {
-    if (event.key === "Enter") {
-      setDisplayContent(event.target.value + "\n");
-    }
-  };*/
-
   async function updateRow() {
     const timeCreated = new Date();
     try {
+      console.log("userID:", userID);
       const { data, error } = await supabase
         .from("Announcements")
         .update({
           created_at: timeCreated,
+          user_id: userID,
           title: displayTitle,
           content: displayContent
         })
@@ -34,6 +30,7 @@ export default function EditAnn({ content, title, annID, hide }) {
 
       if (error) {
         console.error("Error updating row:", error.message);
+        message.error("No access.");
       } else {
         message.success("Announcement Updated!");
         hide();

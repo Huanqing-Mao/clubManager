@@ -17,7 +17,7 @@ export default function UploadPop({ folderName, fetchFiles }) {
       <Popover
         content={
           <div>
-            <UploadInFolder folderName={folderName} />
+            <UploadInFolder folderName={folderName} hide={hide} />
             <a onClick={hide}>Close</a>
           </div>
         }

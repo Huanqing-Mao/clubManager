@@ -16,11 +16,14 @@ export default function CreateNewAnn({ userID }) {
     setContent(event.target.value);
   };
 
-  const handleNewLine = (event) => {
+  /*const handleNewLine = (event) => {
     if (event.key === "Enter") {
-      setContent(event.target.value + "\n");
+      setContent(event.target.value);
+      //setContent(event.target.value + "\n");
     }
-  };
+  };*/
+
+  //onPressEnter={handleNewLine}
 
   async function handleUpdate() {
     try {
@@ -78,7 +81,6 @@ export default function CreateNewAnn({ userID }) {
         }}
         value={content}
         onChange={handleContentChange}
-        onPressEnter={handleNewLine}
         placeholder="Body"
         autoSize={{ minRows: 3, maxRows: 6 }}
       />

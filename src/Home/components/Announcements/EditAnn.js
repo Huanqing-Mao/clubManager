@@ -14,11 +14,11 @@ export default function EditAnn({ content, title, annID }) {
     setDisplayContent(event.target.value);
   };
 
-  const handleNewLine = (event) => {
+  /*const handleNewLine = (event) => {
     if (event.key === "Enter") {
       setDisplayContent(event.target.value + "\n");
     }
-  };
+  };*/
 
   async function updateRow() {
     const timeCreated = new Date();
@@ -66,7 +66,6 @@ export default function EditAnn({ content, title, annID }) {
         }}
         value={displayContent}
         onChange={handleContentChange}
-        onPressEnter={handleNewLine}
         placeholder="Body"
         autoSize={{ minRows: 3, maxRows: 6 }}
       />

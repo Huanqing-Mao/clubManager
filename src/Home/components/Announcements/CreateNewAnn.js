@@ -16,11 +16,14 @@ export default function CreateNewAnn({ userID }) {
     setContent(event.target.value);
   };
 
-  const handleNewLine = (event) => {
+  /*const handleNewLine = (event) => {
     if (event.key === "Enter") {
-      setContent(event.target.value + "\n");
+      setContent(event.target.value);
+      //setContent(event.target.value + "\n");
     }
-  };
+  };*/
+
+  //onPressEnter={handleNewLine}
 
   async function handleUpdate() {
     try {
@@ -28,23 +31,27 @@ export default function CreateNewAnn({ userID }) {
       const uniqueId = uuidv4();
 
       // Insert the announcement data into the "announcement" table
-      const { data, error } = await supabase.from("Announcements").insert([
-        {
-          ann_id: uniqueId,
-          user_id: userID,
-          created_at: timeCreated,
-          title: title,
-          content: content
-        }
-      ]);
+      if (title && content) {
+        const { data, error } = await supabase.from("Announcements").insert([
+          {
+            ann_id: uniqueId,
+            user_id: userID,
+            created_at: timeCreated,
+            title: title,
+            content: content
+          }
+        ]);
 
-      if (error) {
-        console.error("Error creating announcement:", error.message);
+        if (error) {
+          console.error("Error creating announcement:", error.message);
+        } else {
+          console.log("Announcement created successfully");
+          message.success("Announcement Created Successfully!");
+          setTitle("");
+          setContent("");
+        }
       } else {
-        console.log("Announcement created successfully");
-        message.success("Announcement Created Successfully!");
-        setTitle("");
-        setContent("");
+        message.error("Please fill in all fields!");
       }
     } catch (error) {
       console.error("Error creating announcement:", error.message);
@@ -74,7 +81,6 @@ export default function CreateNewAnn({ userID }) {
         }}
         value={content}
         onChange={handleContentChange}
-        onPressEnter={handleNewLine}
         placeholder="Body"
         autoSize={{ minRows: 3, maxRows: 6 }}
       />

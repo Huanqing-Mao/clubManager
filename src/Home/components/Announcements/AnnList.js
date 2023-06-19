@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
-import { Button, Spin, Card, message, Popconfirm, Divider, Input } from "antd";
+import {
+  Button,
+  Spin,
+  Card,
+  message,
+  Popconfirm,
+  Divider,
+  Input,
+  Pagination
+} from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import EditPop from "./EditPop";
 import NewAnnPop from "./NewAnnPop";
-import useFormItemStatus from "antd/es/form/hooks/useFormItemStatus";
+
 const { Search } = Input;
 
 export default function AnnList({ userID }) {
@@ -26,16 +35,20 @@ export default function AnnList({ userID }) {
           created_at,
           users(user_id, name)`
       );
+      //console.log("data: ", data);
+      //console.log(data.length === 0);
 
       if (error) {
         console.error("Error fetching announcements:", error.message);
+      } else if (data.length === 0) {
+        setAnnList(["empty"]);
       } else {
         const sortedData = data.sort(
           (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
 
         setAnnList(sortedData);
-        console.log(annList);
+        console.log("annlist", annList);
       }
     } catch (error) {
       console.error("Error fetching announcements:", error.message);
@@ -85,6 +98,12 @@ export default function AnnList({ userID }) {
     );
   }
 
+  const [current, setCurrent] = useState(1);
+  const onChange = (page) => {
+    console.log(page);
+    setCurrent(page);
+  };
+
   return (
     <div>
       <p></p>
@@ -103,7 +122,12 @@ export default function AnnList({ userID }) {
       />
 
       {annList.length > 0 ? (
-        filterWord ? (
+        annList[0] === "empty" ? (
+          <div>
+            <p></p>
+            <Card> There are no announcements yet</Card>
+          </div>
+        ) : filterWord ? (
           annList
             .filter((item) => filterContent(item, filterWord))
             .map((item) => {
@@ -156,7 +180,7 @@ export default function AnnList({ userID }) {
                     <Divider type="vertical" />
 
                     <Popconfirm
-                      title="Delete the task"
+                      title="Delete the announcement"
                       description="Are you sure to delete this announcement?"
                       onConfirm={() => deleteRow(item.user_id, item.created_at)}
                       onCancel={cancel}
@@ -172,69 +196,74 @@ export default function AnnList({ userID }) {
               );
             })
         ) : (
-          annList.map((item) => {
-            //console.log(item);
-            // the entire list
-            const dateObj = new Date(item.created_at);
+          <div>
+            {annList.map((item) => {
+              const dateObj = new Date(item.created_at);
 
-            const options = {
-              day: "numeric",
-              month: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "numeric"
-            };
-            const formattedDate = dateObj.toLocaleDateString("en-GB", options);
-            //console.log(formattedDate);
-            return (
-              <div style={{ whiteSpace: "pre-line" }}>
-                <p></p>
+              const options = {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric"
+              };
+              const formattedDate = dateObj.toLocaleDateString(
+                "en-GB",
+                options
+              );
+              // just need to slice according to page number
+              return (
+                <div style={{ whiteSpace: "pre-line" }}>
+                  <p></p>
 
-                <Card title={item.title}>
-                  <p> {item.content}</p>
-                  <p
-                    style={{
-                      fontSize: "80%",
-                      fontStyle: "italic",
-                      opacity: 0.5
-                    }}
-                  >
-                    Created by: {item.users.name}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "80%",
-                      fontStyle: "italic",
-                      opacity: 0.5
-                    }}
-                  >
-                    Created at : {formattedDate}
-                  </p>
+                  <Card title={item.title}>
+                    <p> {item.content}</p>
+                    <p
+                      style={{
+                        fontSize: "80%",
+                        fontStyle: "italic",
+                        opacity: 0.5
+                      }}
+                    >
+                      Created by: {item.users.name}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "80%",
+                        fontStyle: "italic",
+                        opacity: 0.5
+                      }}
+                    >
+                      Created at : {formattedDate}
+                    </p>
 
-                  <EditPop
-                    content={item.content}
-                    title={item.title}
-                    annID={item.ann_id}
-                    fetchAnnouncements={fetchAnnouncements}
-                  />
-                  <Divider type="vertical" />
+                    <EditPop
+                      content={item.content}
+                      title={item.title}
+                      annID={item.ann_id}
+                      fetchAnnouncements={fetchAnnouncements}
+                    />
+                    <Divider type="vertical" />
 
-                  <Popconfirm
-                    title="Delete the task"
-                    description="Are you sure to delete this announcement?"
-                    onConfirm={() => deleteRow(item.user_id, item.created_at)}
-                    onCancel={cancel}
-                    okText="Delete"
-                    cancelText="Cancel"
-                  >
-                    <Button danger icon=<DeleteOutlined />>
-                      Delete
-                    </Button>
-                  </Popconfirm>
-                </Card>
-              </div>
-            );
-          })
+                    <Popconfirm
+                      title="Delete the task"
+                      description="Are you sure to delete this announcement?"
+                      onConfirm={() => deleteRow(item.user_id, item.created_at)}
+                      onCancel={cancel}
+                      okText="Delete"
+                      cancelText="Cancel"
+                    >
+                      <Button danger icon=<DeleteOutlined />>
+                        Delete
+                      </Button>
+                    </Popconfirm>
+                  </Card>
+                </div>
+              );
+            })}
+            <p></p>
+            {/*<Pagination current={current} onChange={onChange} total={50} />*/}
+          </div>
         )
       ) : (
         <div style={{ marginTop: "100px" }}>

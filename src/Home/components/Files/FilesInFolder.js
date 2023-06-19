@@ -22,6 +22,7 @@ export default function FilesInFolder({
   };
   async function fetchFiles() {
     try {
+      setFileList([]);
       const { data, error } = await supabase.storage
         .from("cca")
         .list(folderName);
@@ -89,9 +90,7 @@ export default function FilesInFolder({
     .filter((item) => item.name !== ".emptyFolderPlaceholder")
     .filter((item) => item.name !== "ignore");
 
-  //console.log(folderName);
-  //console.log(data.map((item) => item.name));
-  //console.log(data.filter((item) => item.name !== "ignore"));
+  //can filter later if you wanna settle the loading thing
   return (
     <div>
       <Divider orientation="left" orientationMargin="0">

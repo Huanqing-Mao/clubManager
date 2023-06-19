@@ -58,7 +58,7 @@ function HomePage({ handleBackNav, userID }) {
         {info === "nil" ? (
           <Alert
             message="Complete Your Profile"
-            description="Please complete your profile before making edits, or else your response will not be recorded. Thank you!"
+            description="Please complete your profile before making edits, or else you will not be able to access all functions. Thank you!"
             type="info"
             showIcon
             closable

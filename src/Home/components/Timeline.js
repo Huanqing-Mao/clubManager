@@ -50,7 +50,7 @@ function Timeline( { currentID } ) {
     //setEvents(data);
     console.log("current events");
     console.log(events);
-  }, [newEvent, deleteEvent]);
+  }, [newEvent, events, deleteEvent]);
 
   const getMonthData = (value) => {
     if (events.length === 0 || events[0] === undefined) {
@@ -84,7 +84,13 @@ function Timeline( { currentID } ) {
       <ul className="events">
         {num.map((item) => (
           <li key={item.content}>
+            <Popover
+              
+              trigger="click"
+              content={eventDetails(item.id)}
+            >
             <Tag className={item.type}>{item.event_name}</Tag>
+            </Popover>
           </li>
         ))}
       </ul>

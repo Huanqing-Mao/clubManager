@@ -61,12 +61,15 @@ function PollQuestions({ pollID, cID, deletePoll }) {
         user_id: cID
       });
     console.log(vr);
+    setVote(null);
     if (vr !== null && vr[0] !== undefined) {
       setVote(vr[0].option_id);
       setVoted("Update");
       setMessage(
         "We have already recorded your response, you could still update your vote before the deadline!"
       );
+      console.log("null problem")
+      console.log(vote);
     } else {
             setVoted("Submit");
             setMessage("You have not submitted your vote yet, please vote before the deadline!");
@@ -113,7 +116,9 @@ function PollQuestions({ pollID, cID, deletePoll }) {
   }, [passedDdl, voted, vote]);
 
   async function updateVote() {
-    if (voted === "Submit") {
+    if (vote === null) {
+      alert("Please select an option first!")
+    } else if (voted === "Submit") {
       const { ierror } = await supabase
         .from("Votes")
         .insert({ poll_id: pollID, user_id: cID, option_id: vote });

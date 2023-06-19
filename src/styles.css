@@ -475,6 +475,13 @@ ul {
   margin-bottom: 30px;
 }
 
+.no_poll{
+  margin-left: 2%;
+  flex-grow: 1;
+  width: 80%;
+  text-align: center;
+}
+
 .poll_list {
   margin-left: 2%;
   flex-grow: 1;
@@ -486,6 +493,7 @@ ul {
   transition: 0.3s ease;
   margin-left: 2%;
   width: 100%;
+  
 }
 
 .create_poll {

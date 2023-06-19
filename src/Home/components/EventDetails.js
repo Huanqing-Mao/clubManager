@@ -3,7 +3,7 @@ import { supabase } from "../../supabase";
 import { Checkbox, Divider, Button } from 'antd';
 
 function EventDetails({ eventID, currentID, deleteEvent }) {
-    const [event, setEvent] = useState(null);
+    const [event, setEvent] = useState('loading');
     const [attend, setAttend] = useState(false);
     const [record, setRecord] = useState(null);
 
@@ -79,6 +79,12 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
             <h2>Please select an event.</h2>
           </div>
         );
+    } else if (event === 'loading') {
+      return (
+        <div>
+          <h2>Loading...</h2>
+        </div>
+      )
     } else {
         return (
             <div>

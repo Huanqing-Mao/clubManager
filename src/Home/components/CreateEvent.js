@@ -49,6 +49,7 @@ function CreateEvent( { currentID, newEvent, hide } ) {
 
     function onFinish(values) {
         console.log('Received values of form:', values);
+        
         newEvent(values, currentID);
     };
 

@@ -3,7 +3,7 @@ import { supabase } from "../../../supabase";
 import { Input, Button, message } from "antd";
 const { TextArea } = Input;
 
-export default function EditAnn({ content, title, annID }) {
+export default function EditAnn({ content, title, annID, hide }) {
   const [displayContent, setDisplayContent] = useState(content);
   const [displayTitle, setDisplayTitle] = useState(title);
   const handleTitleChange = (event) => {
@@ -36,6 +36,7 @@ export default function EditAnn({ content, title, annID }) {
         console.error("Error updating row:", error.message);
       } else {
         message.success("Announcement Updated!");
+        hide();
         console.log("Row updated successfully:", data);
       }
     } catch (error) {

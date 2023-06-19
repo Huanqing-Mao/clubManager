@@ -17,7 +17,12 @@ export default function EditPop({ content, title, annID, fetchAnnouncements }) {
       <Popover
         content={
           <div>
-            <EditAnn content={content} title={title} annID={annID} />
+            <EditAnn
+              content={content}
+              title={title}
+              annID={annID}
+              hide={hide}
+            />
             <p></p>
             <a onClick={hide}>Close</a>
           </div>

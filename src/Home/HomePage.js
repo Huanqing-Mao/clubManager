@@ -8,6 +8,7 @@ function HomePage({ handleBackNav, userID }) {
   const [activeSection, setActiveSection] = useState("Home");
   const [currentBanner, setBanner] = useState("Welcome Back!");
   const [info, setInfo] = useState("");
+
   async function fetchUsernameById(userId) {
     try {
       const { data, error } = await supabase

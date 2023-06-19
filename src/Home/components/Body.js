@@ -5,9 +5,8 @@ import PollPage from "./PollPage";
 import AttendancePage from "./AttendancePage";
 import FilesMain from "./Files/FilesMain";
 import AnnMain from "./Announcements/AnnMain";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { supabase } from "../../supabase";
-
 
 export default function Body({
   activeSection,
@@ -17,9 +16,9 @@ export default function Body({
   userID
 }) {
   let content;
-  
 
   if (activeSection === "Home") {
+    console.log("body id:", userID);
     content = (
       <Home
         setActiveSection={setActiveSection}
@@ -27,7 +26,6 @@ export default function Body({
         banner={banner}
         setBanner={setBanner}
         userID={userID}
-
       />
     );
   } else if (activeSection === "Attendance") {

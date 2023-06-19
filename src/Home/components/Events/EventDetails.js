@@ -42,7 +42,7 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
         };
         setLoad('loaded');
     }
-  }
+  
 
   useEffect(() => {
     fetchData();
@@ -90,7 +90,7 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
           <h2>Loading...</h2>
         </div>
       )
-   } else {
+  } else {
     return (
       <div>
         <h2>{event.event_name}</h2>

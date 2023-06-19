@@ -28,23 +28,27 @@ export default function CreateNewAnn({ userID }) {
       const uniqueId = uuidv4();
 
       // Insert the announcement data into the "announcement" table
-      const { data, error } = await supabase.from("Announcements").insert([
-        {
-          ann_id: uniqueId,
-          user_id: userID,
-          created_at: timeCreated,
-          title: title,
-          content: content
-        }
-      ]);
+      if (title && content) {
+        const { data, error } = await supabase.from("Announcements").insert([
+          {
+            ann_id: uniqueId,
+            user_id: userID,
+            created_at: timeCreated,
+            title: title,
+            content: content
+          }
+        ]);
 
-      if (error) {
-        console.error("Error creating announcement:", error.message);
+        if (error) {
+          console.error("Error creating announcement:", error.message);
+        } else {
+          console.log("Announcement created successfully");
+          message.success("Announcement Created Successfully!");
+          setTitle("");
+          setContent("");
+        }
       } else {
-        console.log("Announcement created successfully");
-        message.success("Announcement Created Successfully!");
-        setTitle("");
-        setContent("");
+        message.error("Please fill in all fields!");
       }
     } catch (error) {
       console.error("Error creating announcement:", error.message);

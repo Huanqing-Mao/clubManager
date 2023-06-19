@@ -9,16 +9,28 @@ export default function MoveFiles({ folderName, fileName }) {
   const [defaultValue, setDefaultValue] = useState("Move To");
   const handleClick = async () => {
     try {
-      // Copy the file to the destination folder
       if (toFolder) {
-        await supabase.storage
+        const { data, error } = await supabase.storage
           .from("cca")
-          .move(`${folderName}/${fileName}`, `${toFolder}/${fileName}`);
-        console.log(folderName, fileName);
-        console.log(toFolder, fileName);
+          .list(`${toFolder}`, {
+            limit: 100,
+            offset: 0,
+            sortBy: { column: "name", order: "asc" },
+            search: `${fileName}`
+          });
 
-        message.success("File moved successfully");
-        // Handle the success case
+        if (data.length > 0) {
+          message.error("File already exists in the destination folder!");
+        } else {
+          await supabase.storage
+            .from("cca")
+            .move(`${folderName}/${fileName}`, `${toFolder}/${fileName}`);
+
+          message.success("File moved successfully");
+          // Handle the success case
+        }
+      } else {
+        message.error("No folder Chosen!");
       }
     } catch (error) {
       console.error("Error moving file:", error.message);

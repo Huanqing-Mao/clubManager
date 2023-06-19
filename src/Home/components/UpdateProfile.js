@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useState } from "react";
 import { supabase } from "../../supabase";
 import SelectFaculty from "./SelectFaculty";
@@ -22,7 +23,7 @@ export default function UpdateProfile({ userID }) {
       faculty === "" ||
       pe === ""
     ) {
-      alert("Please fill in all the fields!");
+      message.error("Please fill in all the fields!");
     } else {
       const { data, error } = await supabase
         .from("users")
@@ -39,7 +40,7 @@ export default function UpdateProfile({ userID }) {
         console.error("Error updating data: ", error);
       } else {
         console.log("Data updated successfully");
-        alert("Data Updated Successfully!");
+        message.success("Data Updated Successfully!");
         window.location.reload(true);
       }
     }

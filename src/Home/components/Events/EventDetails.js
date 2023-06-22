@@ -7,6 +7,7 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
     const [attend, setAttend] = useState(false);
     const [record, setRecord] = useState(null);
     const [load, setLoad] = useState('loading');
+    const [profile, setProfile] = useState(null);
 
   async function fetchData() {
     let { data: evs, error } = await supabase
@@ -42,11 +43,33 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
         };
         setLoad('loaded');
     }
+
+    async function getProfile(userID) {
+      try {
+        const { data, error } = await supabase
+          .from("users")
+          .select("name")
+          .eq("user_id", userID)
+          .single();
+    
+        if (error) {
+          console.error("Error fetching username:", error);
+          return false;
+        }
+    
+        return true;
+      } catch (error) {
+        console.error("Error fetching username:", error);
+        return false;
+      }
+    }
   
 
   useEffect(() => {
     fetchData();
     //getAttendance();
+    getProfile(currentID).then((value) => setProfile(value));
+    console.log("profile:", profile);
   }, [eventID]);
 
   useEffect(() => {
@@ -59,23 +82,38 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
     setAttend(updatedAtt);
     console.log(attend);
     console.log(`checked = ${e.target.checked}`);
+    try {
     if (record) {
-      const { uerror } = await supabase
+      const { data, error } = await supabase
         .from("Attendance")
         .update({ attending: e.target.checked })
         .match({
           event_id: eventID,
           member_id: currentID
         });
-      message.success("Update Success!");
+        if (error) {
+          message.error("No access.");
+        } else {
+          message.success("Update Success!");
+        }
     } else {
-      const { ierror } = await supabase.from("Attendance").insert({
+      const { data, error } = await supabase.from("Attendance").insert([{
         event_id: eventID,
         member_id: currentID,
         attending: e.target.checked
-      });
-      message.success("Your response has been recorded!");
+      }]);
+
+      if (error) {
+        message.error("No access.");
+        console.log("error message:", error);
+      } else {
+        message.success("Your response has been recorded!");
+        console.log("problem here")
+      }
     }
+  } catch (error) {
+    console.log("There's something wrong. Please contact the staff.")
+  }
   };
 
   if (eventID === null || event === null) {
@@ -104,7 +142,7 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
         <br></br>
         <br></br>
         <Button
-          onClick={() => deleteEvent(eventID)}
+          onClick={() => deleteEvent(eventID, profile)}
           className="AntButton"
           type="primary"
         >

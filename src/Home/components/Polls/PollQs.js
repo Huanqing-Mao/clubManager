@@ -14,6 +14,7 @@ function PollQuestions({ pollID, cID, deletePoll }) {
   );
   const [passedDdl, setPassedDdl] = useState(false);
   const [form, setForm] = useState(null);
+  const [profile, setProfile] = useState(null);
   console.log(pollID);
   console.log("current timestamp:", Date.now());
 
@@ -93,6 +94,26 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     }
   }
 
+  async function getProfile(userID) {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("name")
+        .eq("user_id", userID)
+        .single();
+  
+      if (error) {
+        console.error("Error fetching username:", error);
+        return false;
+      }
+  
+      return true;
+    } catch (error) {
+      console.error("Error fetching username:", error);
+      return false;
+    }
+  }
+
   useEffect(() => {
     if (pollID !== null) {
       fetchData();
@@ -105,6 +126,8 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     getVoteRecord();
     console.log(vote);
     //formStatus();
+    getProfile(cID).then((value) => setProfile(value));
+    console.log("profile:", profile);
   }, [pollID]);
 
   useEffect(() => {
@@ -115,21 +138,31 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     if (vote === null) {
       displayMessage.error("Please select an option first!");
     } else if (voted === "Submit") {
-      const { ierror } = await supabase
+      const { data, error } = await supabase
         .from("Votes")
         .insert({ poll_id: pollID, user_id: cID, option_id: vote });
-      displayMessage.success("Your response has been recorded!");
+
+        if (error) {
+          displayMessage.error("No access.")
+        } else {
+          displayMessage.success("Your response has been recorded!");
+        }
       //window.location.reload();
     } else {
-      const { uerror } = await supabase
+      const { data, error } = await supabase
         .from("Votes")
         .update({ option_id: vote })
         .match({
           poll_id: pollID,
           user_id: cID
         });
+      
+      if (error) {
+        displayMessage.error("No access.")
+      } else {
 
-      displayMessage.success("Update Success!");
+        displayMessage.success("Update Success!");
+      }
       //window.location.reload(true);
     }
   }
@@ -161,7 +194,7 @@ function PollQuestions({ pollID, cID, deletePoll }) {
           {form}
         </Form>
         <br></br>
-        <Button onClick={() => deletePoll(pollID)} className="AntButton">
+        <Button onClick={() => deletePoll(pollID, profile)} className="AntButton">
           Delete this poll
         </Button>
       </div>

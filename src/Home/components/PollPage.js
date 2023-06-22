@@ -1,4 +1,4 @@
-import { Card, Button, Popover } from "antd";
+import { Card, Button, Popover, message } from "antd";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase";
 import PollQuestions from "./Polls/PollQs";
@@ -90,14 +90,19 @@ function PollPage() {
   }
 
   async function newPoll(values) {
-    const { nerror } = await supabase.from("Polls").insert({
+    const { data, error } = await supabase.from("Polls").insert({
       posted_by: currentID,
       deadline: values.deadline,
       active: true,
       poll_name: values.poll_name,
       question: values.question
     });
-    getNewPollID(values);
+
+    if (error) {
+      message.error("No access.")
+    } else {
+      getNewPollID(values);
+    }
   }
 
   async function getNewPollID(values) {
@@ -127,12 +132,16 @@ function PollPage() {
     const { oerror } = await supabase.from("Options").insert(optionsData);
   }
 
-  async function deletePoll(pollID) {
-    const { derror } = await supabase
-      .from("Polls")
-      .update({ active: false })
-      .eq("id", pollID);
-    setChoice(null);
+  async function deletePoll(pollID, username) {
+    if (!username || username === null) {
+      message.error("No access.")
+    } else {
+      const { derror } = await supabase
+        .from("Polls")
+        .update({ active: false })
+        .eq("id", pollID);
+      setChoice(null);
+    }
   }
 
   return (

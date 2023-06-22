@@ -17,7 +17,7 @@ export default function NewAnnPop({ userID, fetchAnnouncements }) {
       <Popover
         content={
           <div>
-            <CreateNewAnn userID={userID} />
+            <CreateNewAnn userID={userID} hide={hide} />
             <p></p>
             <a onClick={hide}>Close</a>
           </div>

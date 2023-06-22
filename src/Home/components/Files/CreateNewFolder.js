@@ -13,7 +13,7 @@ import RadioOptions from "./RadioOptions";
 import { Card } from "antd";
 import ignore from "./ignore";
 
-export default function CreateNewFolder({ nameList, hide }) {
+export default function CreateNewFolder({ nameList }) {
   const [fileName, setFileName] = useState("");
 
   const handleFilenameInputChange = (event) => {
@@ -37,7 +37,6 @@ export default function CreateNewFolder({ nameList, hide }) {
         } else {
           console.log("Folder Created successfully");
           message.success("Success!");
-          hide();
         }
 
         setFileName("");

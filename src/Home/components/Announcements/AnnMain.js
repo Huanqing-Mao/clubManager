@@ -5,7 +5,6 @@ import NewAnnPop from "./NewAnnPop";
 import AnnList from "./AnnList";
 
 export default function AnnMain({ userID }) {
-  //console.log("my id:", userID);
   return (
     <div>
       <AnnList userID={userID} />

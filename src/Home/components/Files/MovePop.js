@@ -17,11 +17,7 @@ export default function MovePop({ folderName, fileName, fetchFiles }) {
       <Popover
         content={
           <div>
-            <MoveFiles
-              folderName={folderName}
-              fileName={fileName}
-              hide={hide}
-            />
+            <MoveFiles folderName={folderName} fileName={fileName} />
             <p> </p>
             <a onClick={hide}>Close</a>
           </div>

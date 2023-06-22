@@ -3,14 +3,7 @@ import { useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
 import EditAnn from "./EditAnn";
 
-export default function EditPop({
-  content,
-  title,
-  annID,
-  fetchAnnouncements,
-  userID
-}) {
-  console.log("id in here:", userID);
+export default function EditPop({ content, title, annID, fetchAnnouncements }) {
   const Pop = () => {
     const [open, setOpen] = useState(false);
     const hide = () => {
@@ -20,18 +13,11 @@ export default function EditPop({
     const handleOpenChange = (newOpen) => {
       setOpen(newOpen);
     };
-
     return (
       <Popover
         content={
           <div>
-            <EditAnn
-              content={content}
-              title={title}
-              annID={annID}
-              hide={hide}
-              userID={userID}
-            />
+            <EditAnn content={content} title={title} annID={annID} />
             <p></p>
             <a onClick={hide}>Close</a>
           </div>

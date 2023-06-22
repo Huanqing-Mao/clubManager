@@ -4,7 +4,7 @@ import { supabase } from "../../../supabase";
 import SelectFolder from "./SelectFolder";
 import { ArrowRightOutlined, DeleteOutlined } from "@ant-design/icons";
 
-export default function MoveFiles({ folderName, fileName, hide }) {
+export default function MoveFiles({ folderName, fileName }) {
   const [toFolder, setToFolder] = useState("");
   const [defaultValue, setDefaultValue] = useState("Move To");
   const handleClick = async () => {
@@ -27,7 +27,6 @@ export default function MoveFiles({ folderName, fileName, hide }) {
             .move(`${folderName}/${fileName}`, `${toFolder}/${fileName}`);
 
           message.success("File moved successfully");
-          hide();
           // Handle the success case
         }
       } else {

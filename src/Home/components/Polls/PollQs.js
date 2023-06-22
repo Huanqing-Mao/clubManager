@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
-import { Form, Radio, message as displayMessage, Button } from "antd";
+import { Form, Radio, Button } from "antd";
 import moment from "moment";
 
 function PollQuestions({ pollID, cID, deletePoll }) {
@@ -46,6 +46,12 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     console.log(question);
   }
 
+  // async function getUserID() {
+  //     const { data: { user } } = await supabase.auth.getUser();
+  //     setCurrentID(user.id);
+  //     console.log(currentID);
+  // }
+
   async function getVoteRecord() {
     const { data: vr, verror } = await supabase
       .from("Votes")
@@ -62,14 +68,12 @@ function PollQuestions({ pollID, cID, deletePoll }) {
       setMessage(
         "We have already recorded your response, you could still update your vote before the deadline!"
       );
-      console.log("null problem");
+      console.log("null problem")
       console.log(vote);
     } else {
-      setVoted("Submit");
-      setMessage(
-        "You have not submitted your vote yet, please vote before the deadline!"
-      );
-    }
+            setVoted("Submit");
+            setMessage("You have not submitted your vote yet, please vote before the deadline!");
+    };
 
     console.log("previous vote");
     console.log(vr);
@@ -113,12 +117,12 @@ function PollQuestions({ pollID, cID, deletePoll }) {
 
   async function updateVote() {
     if (vote === null) {
-      displayMessage.error("Please select an option first!");
+      alert("Please select an option first!")
     } else if (voted === "Submit") {
       const { ierror } = await supabase
         .from("Votes")
         .insert({ poll_id: pollID, user_id: cID, option_id: vote });
-      displayMessage.success("Your response has been recorded!");
+      alert("Your response has been recorded!");
       //window.location.reload();
     } else {
       const { uerror } = await supabase
@@ -128,8 +132,7 @@ function PollQuestions({ pollID, cID, deletePoll }) {
           poll_id: pollID,
           user_id: cID
         });
-
-      displayMessage.success("Update Success!");
+      alert("Update Success!");
       //window.location.reload(true);
     }
   }

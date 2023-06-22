@@ -5,7 +5,7 @@ import { Button, message, Spin } from "antd";
 
 import { Card } from "antd";
 
-export default function UploadInFolder({ folderName, hide }) {
+export default function UploadInFolder({ folderName }) {
   const [uploadStatus, setUploadStatus] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const handleFileChange = (event) => {
@@ -33,7 +33,6 @@ export default function UploadInFolder({ folderName, hide }) {
       } else {
         console.log("File uploaded successfully");
         message.success("Upload Success!");
-        hide();
       }
     } else {
       message.error("No file chosen!");

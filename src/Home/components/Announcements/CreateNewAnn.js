@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const { TextArea } = Input;
 
-export default function CreateNewAnn({ userID, hide }) {
+export default function CreateNewAnn({ userID }) {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const handleTitleChange = (event) => {
@@ -15,6 +15,15 @@ export default function CreateNewAnn({ userID, hide }) {
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
+
+  /*const handleNewLine = (event) => {
+    if (event.key === "Enter") {
+      setContent(event.target.value);
+      //setContent(event.target.value + "\n");
+    }
+  };*/
+
+  //onPressEnter={handleNewLine}
 
   async function handleUpdate() {
     try {
@@ -35,13 +44,11 @@ export default function CreateNewAnn({ userID, hide }) {
 
         if (error) {
           console.error("Error creating announcement:", error.message);
-          message.error("No access.");
         } else {
           console.log("Announcement created successfully");
           message.success("Announcement Created Successfully!");
           setTitle("");
           setContent("");
-          hide();
         }
       } else {
         message.error("Please fill in all fields!");

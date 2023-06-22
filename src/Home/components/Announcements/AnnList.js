@@ -20,7 +20,6 @@ export default function AnnList({ userID }) {
   const [annList, setAnnList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [filterWord, setFilterWord] = useState("");
-  console.log("ID HERE", userID);
 
   const cancel = (e) => {
     //console.log(e);
@@ -177,7 +176,6 @@ export default function AnnList({ userID }) {
                       title={item.title}
                       annID={item.ann_id}
                       fetchAnnouncements={fetchAnnouncements}
-                      userID={userID}
                     />
                     <Divider type="vertical" />
 
@@ -244,7 +242,6 @@ export default function AnnList({ userID }) {
                       title={item.title}
                       annID={item.ann_id}
                       fetchAnnouncements={fetchAnnouncements}
-                      userID={userID}
                     />
                     <Divider type="vertical" />
 

@@ -1,4 +1,4 @@
-import { Card, Button, Popover } from "antd";
+import { Card, Button, Popover, message } from "antd";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase";
 import PollQuestions from "./Polls/PollQs";
@@ -13,7 +13,7 @@ function PollPage() {
   const [currentID, setCurrentID] = useState("");
   const [temPollID, setTemPollID] = useState("");
   const [open, setOpen] = useState(false);
-  const [load, setLoad] = useState('loading');
+  const [load, setLoad] = useState("loading");
   //const { pollstack, setPollstack } = useState(null);
 
   const hide = () => {
@@ -35,7 +35,7 @@ function PollPage() {
       .is("active", true)
       .order("deadline", { ascending: false });
     setPolls(Polls);
-    setLoad('loaded');
+    setLoad("loaded");
     //console.log(polls);
   }
 
@@ -62,42 +62,47 @@ function PollPage() {
     [choice]
   );
 
-  if (load === 'loading') {
+  if (load === "loading") {
     return (
       <div>
         <h2>Loading...</h2>
       </div>
-    )
-  } else if (load === 'loaded' && !polls.length) {
+    );
+  } else if (load === "loaded" && !polls.length) {
     return (
       <div className="flex-container">
         <div className="no_poll">
           <p>There are no polls yet.</p>
         </div>
         <div className="create_poll">
-        <Popover
-          title="Create new poll"
-          trigger="click"
-          content={content}
-          open={open}
-          onOpenChange={handleOpenChange}
-        >
-          <Button className="AntButton">Create Poll</Button>
-        </Popover>
-      </div>
+          <Popover
+            title="Create new poll"
+            trigger="click"
+            content={content}
+            open={open}
+            onOpenChange={handleOpenChange}
+          >
+            <Button className="AntButton">Create Poll</Button>
+          </Popover>
+        </div>
       </div>
     );
   }
 
   async function newPoll(values) {
-    const { nerror } = await supabase.from("Polls").insert({
+    const { data, error } = await supabase.from("Polls").insert({
       posted_by: currentID,
       deadline: values.deadline,
       active: true,
       poll_name: values.poll_name,
       question: values.question
     });
-    getNewPollID(values);
+
+    if (error) {
+      message.error("No access.");
+    } else {
+      getNewPollID(values);
+    }
   }
 
   async function getNewPollID(values) {
@@ -127,12 +132,16 @@ function PollPage() {
     const { oerror } = await supabase.from("Options").insert(optionsData);
   }
 
-  async function deletePoll(pollID) {
-    const { derror } = await supabase
-      .from("Polls")
-      .update({ active: false })
-      .eq("id", pollID);
-    setChoice(null);
+  async function deletePoll(pollID, username) {
+    if (!username || username === null) {
+      message.error("No access.");
+    } else {
+      const { derror } = await supabase
+        .from("Polls")
+        .update({ active: false })
+        .eq("id", pollID);
+      setChoice(null);
+    }
   }
 
   return (

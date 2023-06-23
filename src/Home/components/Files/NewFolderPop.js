@@ -17,7 +17,7 @@ export default function NewFolderPop({ listFolders, nameList }) {
       <Popover
         content={
           <div>
-            <CreateNewFolder nameList={nameList} />
+            <CreateNewFolder nameList={nameList} hide={hide} />
             <a onClick={hide}>Close</a>
           </div>
         }

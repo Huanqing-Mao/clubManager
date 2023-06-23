@@ -20,6 +20,8 @@ export default function AnnList({ userID }) {
   const [annList, setAnnList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [filterWord, setFilterWord] = useState("");
+  const [username, setUsername] = useState("");
+  console.log("ID HERE", userID);
 
   const cancel = (e) => {
     //console.log(e);
@@ -55,27 +57,56 @@ export default function AnnList({ userID }) {
     }
   }
 
-  useEffect(() => {
-    fetchAnnouncements();
-  }, [annList.length]);
-  //
-
-  async function deleteRow(user_id, created_at) {
+  async function getProfile(userID) {
     try {
+      console.log(userID);
       const { data, error } = await supabase
-        .from("Announcements")
-        .delete()
-        .eq("user_id", user_id)
-        .eq("created_at", created_at);
+        .from("users")
+        .select("name")
+        .eq("user_id", userID)
+        .single();
+      console.log(data);
 
       if (error) {
-        console.error("Error deleting row:", error.message);
-        alert("ERROR!!!");
-      } else {
-        console.log("Row deleted successfully");
-        fetchAnnouncements();
+        console.error("Error fetching username:", error);
+        return "";
+      }
 
-        // Perform any additional actions or update the UI as needed
+      console.log(data.name);
+
+      return data.name;
+    } catch (error) {
+      console.error("Error fetching username:", error);
+      return "";
+    }
+  }
+  useEffect(() => {
+    fetchAnnouncements();
+    getProfile(userID).then((value) => setUsername(value));
+    console.log(username);
+  }, [annList.length]);
+
+  async function deleteRow(user_id, created_at, username) {
+    try {
+      console.log(username);
+      if (!username || username === null) {
+        message.error("No access.");
+      } else {
+        const { data, error } = await supabase
+          .from("Announcements")
+          .delete()
+          .eq("user_id", user_id)
+          .eq("created_at", created_at);
+
+        if (error) {
+          console.error("Error deleting row:", error.message);
+          message.error("ERROR!!!");
+        } else {
+          console.log("Row deleted successfully");
+          fetchAnnouncements();
+
+          // Perform any additional actions or update the UI as needed
+        }
       }
     } catch (error) {
       console.error("Error deleting row:", error.message);
@@ -176,13 +207,16 @@ export default function AnnList({ userID }) {
                       title={item.title}
                       annID={item.ann_id}
                       fetchAnnouncements={fetchAnnouncements}
+                      userID={userID}
                     />
                     <Divider type="vertical" />
 
                     <Popconfirm
                       title="Delete the announcement"
                       description="Are you sure to delete this announcement?"
-                      onConfirm={() => deleteRow(item.user_id, item.created_at)}
+                      onConfirm={() =>
+                        deleteRow(item.user_id, item.created_at, username)
+                      }
                       onCancel={cancel}
                       okText="Delete"
                       cancelText="Cancel"
@@ -242,13 +276,16 @@ export default function AnnList({ userID }) {
                       title={item.title}
                       annID={item.ann_id}
                       fetchAnnouncements={fetchAnnouncements}
+                      userID={userID}
                     />
                     <Divider type="vertical" />
 
                     <Popconfirm
                       title="Delete the task"
                       description="Are you sure to delete this announcement?"
-                      onConfirm={() => deleteRow(item.user_id, item.created_at)}
+                      onConfirm={() =>
+                        deleteRow(item.user_id, item.created_at, username)
+                      }
                       onCancel={cancel}
                       okText="Delete"
                       cancelText="Cancel"

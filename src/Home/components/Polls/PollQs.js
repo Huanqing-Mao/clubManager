@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
-import { Form, Radio, Button } from "antd";
+import { Form, Radio, message as displayMessage, Button } from "antd";
 import moment from "moment";
 
 function PollQuestions({ pollID, cID, deletePoll }) {
@@ -14,6 +14,7 @@ function PollQuestions({ pollID, cID, deletePoll }) {
   );
   const [passedDdl, setPassedDdl] = useState(false);
   const [form, setForm] = useState(null);
+  const [profile, setProfile] = useState(null);
   console.log(pollID);
   console.log("current timestamp:", Date.now());
 
@@ -46,12 +47,6 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     console.log(question);
   }
 
-  // async function getUserID() {
-  //     const { data: { user } } = await supabase.auth.getUser();
-  //     setCurrentID(user.id);
-  //     console.log(currentID);
-  // }
-
   async function getVoteRecord() {
     const { data: vr, verror } = await supabase
       .from("Votes")
@@ -68,12 +63,14 @@ function PollQuestions({ pollID, cID, deletePoll }) {
       setMessage(
         "We have already recorded your response, you could still update your vote before the deadline!"
       );
-      console.log("null problem")
+      console.log("null problem");
       console.log(vote);
     } else {
-            setVoted("Submit");
-            setMessage("You have not submitted your vote yet, please vote before the deadline!");
-    };
+      setVoted("Submit");
+      setMessage(
+        "You have not submitted your vote yet, please vote before the deadline!"
+      );
+    }
 
     console.log("previous vote");
     console.log(vr);
@@ -97,6 +94,26 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     }
   }
 
+  async function getProfile(userID) {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("name")
+        .eq("user_id", userID)
+        .single();
+
+      if (error) {
+        console.error("Error fetching username:", error);
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error fetching username:", error);
+      return false;
+    }
+  }
+
   useEffect(() => {
     if (pollID !== null) {
       fetchData();
@@ -109,6 +126,8 @@ function PollQuestions({ pollID, cID, deletePoll }) {
     getVoteRecord();
     console.log(vote);
     //formStatus();
+    getProfile(cID).then((value) => setProfile(value));
+    console.log("profile:", profile);
   }, [pollID]);
 
   useEffect(() => {
@@ -117,22 +136,32 @@ function PollQuestions({ pollID, cID, deletePoll }) {
 
   async function updateVote() {
     if (vote === null) {
-      alert("Please select an option first!")
+      displayMessage.error("Please select an option first!");
     } else if (voted === "Submit") {
-      const { ierror } = await supabase
+      const { data, error } = await supabase
         .from("Votes")
         .insert({ poll_id: pollID, user_id: cID, option_id: vote });
-      alert("Your response has been recorded!");
+
+      if (error) {
+        displayMessage.error("No access.");
+      } else {
+        displayMessage.success("Your response has been recorded!");
+      }
       //window.location.reload();
     } else {
-      const { uerror } = await supabase
+      const { data, error } = await supabase
         .from("Votes")
         .update({ option_id: vote })
         .match({
           poll_id: pollID,
           user_id: cID
         });
-      alert("Update Success!");
+
+      if (error) {
+        displayMessage.error("No access.");
+      } else {
+        displayMessage.success("Update Success!");
+      }
       //window.location.reload(true);
     }
   }
@@ -164,7 +193,10 @@ function PollQuestions({ pollID, cID, deletePoll }) {
           {form}
         </Form>
         <br></br>
-        <Button onClick={() => deletePoll(pollID)} className="AntButton">
+        <Button
+          onClick={() => deletePoll(pollID, profile)}
+          className="AntButton"
+        >
           Delete this poll
         </Button>
       </div>

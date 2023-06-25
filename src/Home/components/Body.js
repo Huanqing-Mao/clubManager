@@ -38,6 +38,10 @@ export default function Body({
     content = <Profile userID={userID} />;
   } else if (activeSection === "Announcements") {
     content = <AnnMain userID={userID} />;
+  } else if (activeSection === "Financials") {
+    content = <p>This is Financials page</p>
+  } else if (activeSection === "Member Profile") {
+    content = <p>This is Member Profile page</p>
   }
 
   return <div className="main">{content}</div>;

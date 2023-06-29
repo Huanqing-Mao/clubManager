@@ -10,7 +10,7 @@ export default function EditPop({
   fetchAnnouncements,
   userID
 }) {
-  console.log("id in here:", userID);
+  //console.log("id in here:", userID);
   const Pop = () => {
     const [open, setOpen] = useState(false);
     const hide = () => {

@@ -21,7 +21,7 @@ export default function AnnList({ userID }) {
   const [keyword, setKeyword] = useState("");
   const [filterWord, setFilterWord] = useState("");
   const [username, setUsername] = useState("");
-  console.log("ID HERE", userID);
+  //console.log("ID HERE", userID);
 
   const cancel = (e) => {
     //console.log(e);
@@ -50,7 +50,7 @@ export default function AnnList({ userID }) {
         );
 
         setAnnList(sortedData);
-        console.log("annlist", annList);
+        //console.log("annlist", annList);
       }
     } catch (error) {
       console.error("Error fetching announcements:", error.message);
@@ -59,20 +59,20 @@ export default function AnnList({ userID }) {
 
   async function getProfile(userID) {
     try {
-      console.log(userID);
+      //console.log(userID);
       const { data, error } = await supabase
         .from("users")
         .select("name")
         .eq("user_id", userID)
         .single();
-      console.log(data);
+      //console.log(data);
 
       if (error) {
         console.error("Error fetching username:", error);
         return "";
       }
 
-      console.log(data.name);
+      //console.log(data.name);
 
       return data.name;
     } catch (error) {
@@ -83,12 +83,12 @@ export default function AnnList({ userID }) {
   useEffect(() => {
     fetchAnnouncements();
     getProfile(userID).then((value) => setUsername(value));
-    console.log(username);
+    //console.log(username);
   }, [annList.length]);
 
   async function deleteRow(user_id, created_at, username) {
     try {
-      console.log(username);
+      //console.log(username);
       if (!username || username === null) {
         message.error("No access.");
       } else {
@@ -131,7 +131,7 @@ export default function AnnList({ userID }) {
 
   const [current, setCurrent] = useState(1);
   const onChange = (page) => {
-    console.log(page);
+    //console.log(page);
     setCurrent(page);
   };
 

@@ -17,7 +17,7 @@ export default function EditAnn({ content, title, annID, hide, userID }) {
   async function updateRow() {
     const timeCreated = new Date();
     try {
-      console.log("userID:", userID);
+      //console.log("userID:", userID);
       const { data, error } = await supabase
         .from("Announcements")
         .update({

@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase";
 import PollQuestions from "./Polls/PollQs";
 import CreatePoll from "./Polls/CreatePoll";
+import PollResult from "./Polls/PollResult";
 import moment from "moment";
 
 function PollPage() {
@@ -172,6 +173,7 @@ function PollPage() {
           cID={currentID}
           deletePoll={deletePoll}
         />
+        <PollResult pollID={choice} currentID={currentID} />
       </div>
       <div className="create_poll">
         <Popover

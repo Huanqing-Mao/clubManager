@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, Space, Timeline, Popover, Button } from 'antd';
 import CreateEvent from './Events/CreateEvent';
 import EventDetails from "./Events/EventDetails";
+import AttendanceList from "./Events/AttendanceList";
 import { fetchEvents, newEvent, deleteEvent } from "./Events/EventsAPI";
 
 
@@ -123,6 +124,7 @@ function AttendancePage( { currentID } ) {
             </div>
             <div className="event_details" >
                 <EventDetails eventID={eventID} currentID={currentID} deleteEvent={deleteThisEvent}/>
+                <AttendanceList eventID={eventID} />
             </div>
             <div className='create_event'>
             <Popover

@@ -59,7 +59,8 @@ export default function FileList( { userID, ccaID, manager } ) {
   return (
     <div>
       <h2>CCA Resources:</h2>
-      <NewFolderPop listFolders={listFolders} nameList={folderList} />
+      {manager === true ?
+      <NewFolderPop listFolders={listFolders} nameList={folderList} /> : <></> }
 
       <div className="files-list">
         <div className="files-menu">
@@ -72,6 +73,7 @@ export default function FileList( { userID, ccaID, manager } ) {
               folderName={folderName}
               listFolders={listFolders}
               setFolderName={setFolderName}
+              manager={manager}
             />
           ) : (
             <div>

@@ -42,13 +42,13 @@ const onOk = (value) => {
   console.log("onOk: ", value);
 };
 
-function CreatePoll({ currentID, newPoll, hide }) {
+function CreatePoll({ currentID, newPoll, hide, ccaID }) {
   function onFinish(values) {
     console.log("Received values of form:", values);
     if (values.poll_name === null || values.question === null) {
       message.error("Please make sure you have filled in all required ");
     } else {
-      newPoll(values);
+      newPoll(values, ccaID);
     }
   }
 

@@ -13,7 +13,9 @@ export default function Body({
   setActiveSection,
   banner,
   setBanner,
-  userID
+  userID,
+  manager,
+  ccaID
 }) {
   let content;
 
@@ -26,18 +28,20 @@ export default function Body({
         banner={banner}
         setBanner={setBanner}
         userID={userID}
+        ccaID={ccaID}
+        manager={manager}
       />
     );
   } else if (activeSection === "Attendance") {
-    content = <AttendancePage currentID={userID} />;
+    content = <AttendancePage currentID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Polls") {
-    content = <PollPage />;
+    content = <PollPage userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Files") {
-    content = <FilesMain />;
+    content = <FilesMain userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Profile") {
-    content = <Profile userID={userID} />;
+    content = <Profile userID={userID} manager={manager} ccaID={ccaID} />;
   } else if (activeSection === "Announcements") {
-    content = <AnnMain userID={userID} />;
+    content = <AnnMain userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Financials") {
     content = <p>This is Financials page</p>
   } else if (activeSection === "Member Profile") {

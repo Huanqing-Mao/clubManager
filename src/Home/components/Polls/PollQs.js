@@ -3,7 +3,7 @@ import { supabase } from "../../../supabase";
 import { Form, Radio, message as displayMessage, Button } from "antd";
 import moment from "moment";
 
-function PollQuestions({ pollID, cID, deletePoll }) {
+function PollQuestions({ pollID, cID, deletePoll, manager, ccaID }) {
   const [options, setOptions] = useState([]);
   const [question, setQuestion] = useState("");
   //const [currentID, setCurrentID] = useState("");
@@ -193,12 +193,13 @@ function PollQuestions({ pollID, cID, deletePoll }) {
           {form}
         </Form>
         <br></br>
+        {manager === true ? 
         <Button
           onClick={() => deletePoll(pollID, profile)}
           className="AntButton"
         >
           Delete this poll
-        </Button>
+        </Button> : <></> }
       </div>
     );
   }

@@ -16,7 +16,7 @@ import NewAnnPop from "./NewAnnPop";
 
 const { Search } = Input;
 
-export default function AnnList({ userID }) {
+export default function AnnList({ userID, ccaID, manager }) {
   const [annList, setAnnList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [filterWord, setFilterWord] = useState("");
@@ -138,9 +138,11 @@ export default function AnnList({ userID }) {
   return (
     <div>
       <p></p>
-
+      {manager === true ?
+      <>
       <NewAnnPop userID={userID} fetchAnnouncements={fetchAnnouncements} />
       <Divider type="vertical" />
+      </> : <></>}
       <Search
         placeholder="Search Announcement"
         onSearch={onSearch}
@@ -202,6 +204,8 @@ export default function AnnList({ userID }) {
                       Created at : {formattedDate}
                     </p>
 
+                    {manager === true ?
+                    <>
                     <EditPop
                       content={item.content}
                       title={item.title}
@@ -224,7 +228,7 @@ export default function AnnList({ userID }) {
                       <Button danger icon=<DeleteOutlined />>
                         Delete
                       </Button>
-                    </Popconfirm>
+                    </Popconfirm> </> : <></> }
                   </Card>
                 </div>
               );
@@ -271,6 +275,8 @@ export default function AnnList({ userID }) {
                       Created at : {formattedDate}
                     </p>
 
+                    {manager === true ? 
+                    <>
                     <EditPop
                       content={item.content}
                       title={item.title}
@@ -293,7 +299,7 @@ export default function AnnList({ userID }) {
                       <Button danger icon=<DeleteOutlined />>
                         Delete
                       </Button>
-                    </Popconfirm>
+                    </Popconfirm></> : <></> }
                   </Card>
                 </div>
               );

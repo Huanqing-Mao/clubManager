@@ -6,7 +6,7 @@ import EventDetails from "./Events/EventDetails";
 import { fetchEvents, newEvent, deleteEvent } from "./Events/EventsAPI";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
-function Timeline({ currentID }) {
+function Timeline({ currentID, ccaID, manager }) {
   const [events, setEvents] = useState([]);
   const [open, setOpen] = useState(false);
 
@@ -19,7 +19,7 @@ function Timeline({ currentID }) {
   };
 
   const content = (
-    <CreateEvent currentID={currentID} newEvent={newEvent} hide={hide} />
+    <CreateEvent currentID={currentID} newEvent={newEvent} hide={hide} ccaID={ccaID}/>
   );
 
   const eventDetails = (eventID) => (
@@ -27,6 +27,8 @@ function Timeline({ currentID }) {
       eventID={eventID}
       currentID={currentID}
       deleteEvent={deleteEvent}
+      ccaID={ccaID}
+      manager={manager}
     />
   );
 
@@ -117,6 +119,7 @@ function Timeline({ currentID }) {
   };
   return (
     <div>
+      {manager === true ?
       <Popover
         title="Create new event"
         trigger="click"
@@ -127,7 +130,7 @@ function Timeline({ currentID }) {
         <Button className="AntButton" icon=<PlusCircleOutlined />>
           Create Event
         </Button>
-      </Popover>
+      </Popover> : <></> }
       <Calendar cellRender={cellRender} />
     </div>
   );

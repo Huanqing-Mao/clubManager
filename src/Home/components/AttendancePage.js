@@ -7,7 +7,7 @@ import AttendanceList from "./Events/AttendanceList";
 import { fetchEvents, newEvent, deleteEvent } from "./Events/EventsAPI";
 
 
-function AttendancePage( { currentID } ) {
+function AttendancePage( { currentID, ccaID, manager } ) {
     const [load, setLoad] = useState('loading');
     const [events, setEvents] = useState([]);
     const [eventID, setEventID] = useState(null);
@@ -82,7 +82,7 @@ function AttendancePage( { currentID } ) {
                 <div className="no_poll">
                     <h2>There are no events yet!</h2>
                 </div>
-                <div className='create_event'>
+                {manager === true ? <div className='create_event'>
                     <Popover
                     title="Create new event"
                     trigger="click"
@@ -92,7 +92,7 @@ function AttendancePage( { currentID } ) {
                     >
                         <Button className="AntButton" type="primary">Create Event</Button>
                     </Popover>
-                </div>
+                </div> : <></> }
             </div>
         )
     }
@@ -123,10 +123,11 @@ function AttendancePage( { currentID } ) {
             </Space>
             </div>
             <div className="event_details" >
-                <EventDetails eventID={eventID} currentID={currentID} deleteEvent={deleteThisEvent}/>
-                <AttendanceList eventID={eventID} />
+                <EventDetails eventID={eventID} currentID={currentID} deleteEvent={deleteThisEvent} ccaID={ccaID} manager={manager}/>
+                {manager === true ?
+                <AttendanceList eventID={eventID} /> : <></> }
             </div>
-            <div className='create_event'>
+            {manager === true ? <div className='create_event'>
             <Popover
                 title="Create new event"
                 trigger="click"
@@ -136,7 +137,7 @@ function AttendancePage( { currentID } ) {
             >
                 <Button className="AntButton" type="primary">Create Event</Button>
             </Popover>
-            </div>
+            </div> : <></> }
         </div>
     )
 }

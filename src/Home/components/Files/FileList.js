@@ -7,7 +7,7 @@ import FilesMenu from "./FilesMenu";
 import selectImage from "./select_folder.png";
 import NewFolderPop from "./NewFolderPop";
 
-export default function FileList() {
+export default function FileList( { userID, ccaID, manager } ) {
   const [folderList, setFolderList] = useState([]);
   const [folderName, setFolderName] = useState("");
 

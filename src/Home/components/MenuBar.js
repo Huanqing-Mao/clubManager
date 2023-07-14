@@ -41,7 +41,6 @@ export default function Menubar({ setPage }) {
         mode="horizontal"
         items={items}
         onSelect={onSelect}
-        style={{ fontFamily: "Raleway" }}
       />
     );
   };

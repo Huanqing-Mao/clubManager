@@ -1,7 +1,17 @@
 import logo from "./cm.png";
 import { supabase } from "../../supabase";
 import FetchName from "./FetchName";
-import { UserOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  HomeOutlined,
+  BellOutlined,
+  ScheduleOutlined,
+  LikeOutlined,
+  FolderOutlined,
+  SolutionOutlined,
+  DollarCircleOutlined
+} from "@ant-design/icons";
+import { Menu } from "antd";
 
 /*const handleSignOut = async () => {
   try {
@@ -19,29 +29,58 @@ export default function TopBar({
   handleBackNav,
   userID
 }) {
-  function goHome() {
-    setActiveSection("Home");
-    setBanner("Welcome Back!");
-  }
+  const items = [
+    {
+      label: "Home",
+      key: "Home",
+      icon: <HomeOutlined />
+    },
+    {
+      label: "Announcements",
+      key: "Announcements",
+      icon: <BellOutlined />
+    },
+    {
+      label: "Attendance",
+      key: "Attendance",
+      icon: <ScheduleOutlined />
+    },
+    {
+      label: "Polls",
+      key: "Polls",
+      icon: <LikeOutlined />
+    },
+    {
+      label: "Files",
+      key: "Files",
+      icon: <FolderOutlined />
+    },
+    {
+      label: "Members",
+      key: "Member Profile",
+      icon: <SolutionOutlined />
+    },
+    {
+      label: "Financials",
+      key: "Financials",
+      icon: <DollarCircleOutlined />
+    }
+  ];
 
-  function goAttendance() {
-    setActiveSection("Attendance");
-    setBanner("Attendance");
-  }
-
-  function goPolls() {
-    setActiveSection("Polls");
-    setBanner("Polls");
-  }
-
-  function goFiles() {
-    setActiveSection("Files");
-    setBanner("Files");
-  }
+  const onClick = (e) => {
+    //console.log("click ", e);
+    setActiveSection(e.key);
+    setBanner(e.key);
+  };
 
   function goProfile() {
     setActiveSection("Profile");
     setBanner("Personal Profile");
+  }
+
+  function goHome() {
+    setActiveSection("Home");
+    setBanner("Welcome Back!");
   }
 
   return (
@@ -57,27 +96,17 @@ export default function TopBar({
           </a>
         </div>
       </div>
-      <hr />
 
       <div className="Navigation">
         <nav className="navBar">
-          <ul>
-            <li>
-              <a onClick={goHome}>Home</a>
-            </li>
-            <li>
-              <a onClick={goAttendance}>Attendance</a>
-            </li>
-            <li>
-              <a onClick={goPolls}>Polls</a>
-            </li>
-            <li>
-              <a onClick={goFiles}>Files</a>
-            </li>
-          </ul>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[activeSection]}
+            mode="horizontal"
+            items={items}
+          />
         </nav>
       </div>
-      <hr />
     </div>
   );
 }

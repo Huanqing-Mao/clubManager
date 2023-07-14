@@ -10,6 +10,7 @@ export default function SelectFolder({
   setFolder
 }) {
   const [folderList, setFolderList] = useState([]);
+  const ccaName = "folder-";
 
   const handleChange = (value) => {
     setDefault(value);
@@ -57,7 +58,7 @@ export default function SelectFolder({
         onChange={handleChange}
         options={folderList.map((item) => ({
           value: item,
-          label: item.includes("folder-") ? item.replace("folder-", "") : item
+          label: item.includes(ccaName) ? item.replace(ccaName, "") : item
         }))}
         onSelect={handleSelect}
       />

@@ -2,7 +2,7 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { supabase } from "../../../supabase";
 import { Checkbox, Divider, Button, message } from "antd";
 
-function EventDetails({ eventID, currentID, deleteEvent }) {
+function EventDetails({ eventID, currentID, deleteEvent, ccaID, manager }) {
   const [event, setEvent] = useState("null");
   const [attend, setAttend] = useState(false);
   const [record, setRecord] = useState(null);
@@ -140,13 +140,14 @@ function EventDetails({ eventID, currentID, deleteEvent }) {
         </Checkbox>
         <br></br>
         <br></br>
+        {manager === true ?
         <Button
           onClick={() => deleteEvent(eventID, profile)}
           className="AntButton"
           type="primary"
         >
           Delete this event
-        </Button>
+        </Button> : <></> }
       </div>
     );
   }

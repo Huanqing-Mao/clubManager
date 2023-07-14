@@ -3,9 +3,10 @@ import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase";
 import PollQuestions from "./Polls/PollQs";
 import CreatePoll from "./Polls/CreatePoll";
+import PollResult from "./Polls/PollResult";
 import moment from "moment";
 
-function PollPage() {
+function PollPage( { userID, ccaID, manager } ) {
   const [polls, setPolls] = useState([]);
   const [error, setError] = useState(null);
   const [choice, setChoice] = useState(null);
@@ -25,7 +26,7 @@ function PollPage() {
   };
 
   const content = (
-    <CreatePoll currentID={currentID} newPoll={newPoll} hide={hide} />
+    <CreatePoll currentID={currentID} newPoll={newPoll} hide={hide} ccaID={ccaID}/>
   );
 
   async function fetchData() {
@@ -89,7 +90,7 @@ function PollPage() {
     );
   }
 
-  async function newPoll(values) {
+  async function newPoll(values, cca) {
     const { data, error } = await supabase.from("Polls").insert({
       posted_by: currentID,
       deadline: values.deadline,
@@ -171,8 +172,13 @@ function PollPage() {
           pollID={choice}
           cID={currentID}
           deletePoll={deletePoll}
+          ccaID={ccaID}
+          manager={manager}
         />
+        {manager === true ?
+        <PollResult pollID={choice} currentID={currentID} /> : <></> }
       </div>
+      {manager === true ?
       <div className="create_poll">
         <Popover
           title="Create new poll"
@@ -183,7 +189,7 @@ function PollPage() {
         >
           <Button className="AntButton">Create Poll</Button>
         </Popover>
-      </div>
+      </div> : <></> }
     </div>
   );
 }

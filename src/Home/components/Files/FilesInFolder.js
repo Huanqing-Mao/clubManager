@@ -13,7 +13,8 @@ import MovePop from "./MovePop";
 export default function FilesInFolder({
   folderName,
   listFolders,
-  setFolderName
+  setFolderName,
+  manager
 }) {
   const [fileList, setFileList] = useState([]);
   const ccaName = "folder-";
@@ -110,7 +111,8 @@ export default function FilesInFolder({
               : folderName}
           </h2>
 
-          <UploadPop folderName={folderName} fetchFiles={fetchFiles} />
+          {manager === true ?
+          <UploadPop folderName={folderName} fetchFiles={fetchFiles} /> : <></> }
           <p></p>
 
           <List
@@ -120,12 +122,14 @@ export default function FilesInFolder({
             renderItem={(item) => (
               <List.Item
                 actions={[
+                  
                   <Button
                     icon=<CloudDownloadOutlined />
                     onClick={() => downloadFile(item.name)}
                   >
                     Download
                   </Button>,
+                  manager ? (
                   <Popconfirm
                     title="Delete the file"
                     description="Are you sure to delete this file?"
@@ -135,12 +139,13 @@ export default function FilesInFolder({
                     cancelText="Cancel"
                   >
                     <Button icon=<DeleteOutlined />>Delete</Button>
-                  </Popconfirm>,
+                  </Popconfirm>) : null,
+                  manager ? (
                   <MovePop
                     folderName={folderName}
                     fileName={item.name}
                     fetchFiles={fetchFiles}
-                  />
+                  />) : null,
                 ]}
               >
                 <div>
@@ -150,12 +155,13 @@ export default function FilesInFolder({
             )}
           />
           <p></p>
-
+          
+          {manager ?
           <DeleteFolders
             folderName={folderName}
             listFolders={listFolders}
             setFolderName={setFolderName}
-          />
+          /> : <></> }
         </>
       ) : (
         <div>

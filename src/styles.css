@@ -611,3 +611,15 @@ ul {
 .Navigation {
   margin-left: 80px;
 }
+
+.poll_result {
+  width: 700px;
+  height: 300px;
+}
+
+.custom-tooltip {
+  margin: 20px;
+  background-color: whitesmoke;
+  opacity: 0.7;
+}
+

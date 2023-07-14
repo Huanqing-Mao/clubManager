@@ -7,7 +7,7 @@ import FilesMenu from "./FilesMenu";
 import selectImage from "./select_folder.png";
 import NewFolderPop from "./NewFolderPop";
 
-export default function FileList() {
+export default function FileList( { userID, ccaID, manager } ) {
   const [folderList, setFolderList] = useState([]);
   const [folderName, setFolderName] = useState("");
   const ccaName = "folder-";
@@ -60,7 +60,8 @@ export default function FileList() {
   return (
     <div>
       <h2>CCA Resources:</h2>
-      <NewFolderPop listFolders={listFolders} nameList={folderList} />
+      {manager === true ?
+      <NewFolderPop listFolders={listFolders} nameList={folderList} /> : <></> }
 
       <div className="files-list">
         <div className="files-menu">
@@ -73,6 +74,7 @@ export default function FileList() {
               folderName={folderName}
               listFolders={listFolders}
               setFolderName={setFolderName}
+              manager={manager}
             />
           ) : (
             <div>

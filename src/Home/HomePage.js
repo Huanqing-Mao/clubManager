@@ -4,10 +4,14 @@ import { useState, useEffect } from "react";
 import { Divider, Alert } from "antd";
 import { supabase } from "../supabase";
 
-function HomePage({ handleBackNav, userID }) {
+function HomePage({ handleBackNav, userID, ccaID, manager }) {
   const [activeSection, setActiveSection] = useState("Home");
   const [currentBanner, setBanner] = useState("Welcome Back!");
   const [info, setInfo] = useState("");
+
+  console.log("current CCA:", ccaID);
+  console.log("current user:", userID);
+  console.log("manager:", manager);
 
   async function fetchUsernameById(userId) {
     try {
@@ -52,6 +56,7 @@ function HomePage({ handleBackNav, userID }) {
           setBanner={setBanner}
           handleBackNav={handleBackNav}
           userID={userID}
+          manager={manager}
         />
       </div>
 
@@ -74,6 +79,8 @@ function HomePage({ handleBackNav, userID }) {
           banner={currentBanner}
           setBanner={setBanner}
           userID={userID}
+          manager={manager}
+          ccaID={ccaID}
         />
       </div>
     </div>

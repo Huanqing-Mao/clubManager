@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import HomePage from "./Home/HomePage";
 import { supabase } from "./supabase";
 import Home from "./Home/components/Home";
+import CheckProfile from "./CheckProfile";
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -16,6 +17,6 @@ export default function App() {
   }, [setSession]);
 
   return (
-    <div>{session ? <HomePage userID={session.user.id} /> : <LoginPage />}</div>
+    <div>{session ? <CheckProfile userID={session.user.id} /> : <LoginPage />}</div>
   );
 }

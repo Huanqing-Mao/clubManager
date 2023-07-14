@@ -1,17 +1,16 @@
 import logo from "./cm.png";
 import { supabase } from "../../supabase";
 import FetchName from "./FetchName";
-import {
-  UserOutlined,
-  HomeOutlined,
-  BellOutlined,
-  ScheduleOutlined,
-  LikeOutlined,
+import { UserOutlined, 
+  HomeOutlined, 
+  BellOutlined, 
+  ScheduleOutlined, 
+  LikeOutlined, 
   FolderOutlined,
   SolutionOutlined,
-  DollarCircleOutlined
-} from "@ant-design/icons";
+  DollarCircleOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
+import { useState, useEffect } from "react";
 
 /*const handleSignOut = async () => {
   try {
@@ -21,57 +20,73 @@ import { Menu } from "antd";
   }
 };*/
 
+const defaultSections = [
+  {
+    label: 'Home',
+    key: 'Home',
+    icon: <HomeOutlined />,
+  },
+  {
+    label: 'Announcements',
+    key: 'Announcements',
+    icon: <BellOutlined />,
+  },
+  {
+    label: 'Attendance',
+    key: 'Attendance',
+    icon: <ScheduleOutlined />,
+  },
+  {
+    label: 'Polls',
+    key: 'Polls',
+    icon: <LikeOutlined />,
+  },
+  {
+    label: 'Files',
+    key: 'Files',
+    icon: <FolderOutlined />,
+  },
+];
+
 export default function TopBar({
   setActiveSection,
   activeSection,
   banner,
   setBanner,
   handleBackNav,
-  userID
+  userID,
+  manager
 }) {
-  const items = [
-    {
-      label: "Home",
-      key: "Home",
-      icon: <HomeOutlined />
-    },
-    {
-      label: "Announcements",
-      key: "Announcements",
-      icon: <BellOutlined />
-    },
-    {
-      label: "Attendance",
-      key: "Attendance",
-      icon: <ScheduleOutlined />
-    },
-    {
-      label: "Polls",
-      key: "Polls",
-      icon: <LikeOutlined />
-    },
-    {
-      label: "Files",
-      key: "Files",
-      icon: <FolderOutlined />
-    },
-    {
-      label: "Members",
-      key: "Member Profile",
-      icon: <SolutionOutlined />
-    },
-    {
-      label: "Financials",
-      key: "Financials",
-      icon: <DollarCircleOutlined />
+
+  const [sections, setSections] = useState([]);
+
+  useEffect(() => {
+    let updatedSections = [...defaultSections];
+
+    if (manager) {
+      updatedSections.push(
+        {
+          label: 'Members',
+          key: 'Member Profile',
+          icon: <SolutionOutlined />
+        },
+        {
+          label: "Financials",
+          key: 'Financials',
+          icon: <DollarCircleOutlined />
+        }
+      );
     }
-  ];
+
+    setSections(updatedSections);
+  }, [manager]);
 
   const onClick = (e) => {
-    //console.log("click ", e);
+    console.log('click ', e);
     setActiveSection(e.key);
     setBanner(e.key);
-  };
+  }
+
 
   function goProfile() {
     setActiveSection("Profile");
@@ -99,12 +114,12 @@ export default function TopBar({
 
       <div className="Navigation">
         <nav className="navBar">
-          <Menu
-            onClick={onClick}
-            selectedKeys={[activeSection]}
-            mode="horizontal"
-            items={items}
-          />
+          <Menu onClick={onClick} 
+          selectedKeys={[activeSection]} 
+          mode="horizontal" 
+          items={sections} 
+          style={{ width: 1350 }}/>
+
         </nav>
       </div>
     </div>

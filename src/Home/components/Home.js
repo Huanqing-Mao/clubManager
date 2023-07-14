@@ -9,7 +9,9 @@ function Home({
   setBanner,
   userID,
   fetchEvents,
-  newEvent
+  newEvent,
+  ccaID,
+  manager
 }) {
   function goAnn() {
     setActiveSection("Announcements");
@@ -29,7 +31,7 @@ function Home({
           <div className="timeline">Event Timeline</div>
         </Card>
         <p></p>
-        <Timeline currentID={userID} />
+        <Timeline currentID={userID} ccaID={ccaID} manager={manager}/>
       </div>
       <div className="AnnSection">
         <Card
@@ -44,7 +46,7 @@ function Home({
             <p></p>
           </div>
         </Card>
-        <AnnMain userID={userID} />
+        <AnnMain userID={userID} ccaID={ccaID} manager={manager}/>
       </div>
     </div>
   );

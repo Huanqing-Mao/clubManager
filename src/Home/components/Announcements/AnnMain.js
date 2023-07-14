@@ -4,11 +4,11 @@ import CreateNewAnn from "./CreateNewAnn";
 import NewAnnPop from "./NewAnnPop";
 import AnnList from "./AnnList";
 
-export default function AnnMain({ userID }) {
+export default function AnnMain({ userID, ccaID, manager }) {
   //console.log("my id:", userID);
   return (
     <div>
-      <AnnList userID={userID} />
+      <AnnList userID={userID} ccaID={ccaID} manager={manager}/>
     </div>
   );
 }

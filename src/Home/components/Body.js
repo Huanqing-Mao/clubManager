@@ -5,8 +5,10 @@ import PollPage from "./PollPage";
 import AttendancePage from "./AttendancePage";
 import FilesMain from "./Files/FilesMain";
 import AnnMain from "./Announcements/AnnMain";
+import FinMain from "./Financials/FinMain";
 import { useState, useEffect } from "react";
 import { supabase } from "../../supabase";
+import MemberMain from "./Membership/MemberMain";
 
 export default function Body({
   activeSection,
@@ -43,9 +45,9 @@ export default function Body({
   } else if (activeSection === "Announcements") {
     content = <AnnMain userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Financials") {
-    content = <p>This is Financials page</p>
+    content = <FinMain />;
   } else if (activeSection === "Member Profile") {
-    content = <p>This is Member Profile page</p>
+    content = <MemberMain />;
   }
 
   return <div className="main">{content}</div>;

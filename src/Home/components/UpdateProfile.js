@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message, Button } from "antd";
 import { useState } from "react";
 import { supabase } from "../../supabase";
 import SelectFaculty from "./SelectFaculty";
@@ -10,6 +10,34 @@ export default function UpdateProfile({ userID }) {
   const [year, setYear] = useState("");
   const [faculty, setFaculty] = useState("");
   const [pe, setPE] = useState("");
+
+  async function updateCCARoles(ccaID, userID) {
+    const { data: userData, error: userError } = await supabase
+      .from("users")
+      .select("ccas")
+      .eq("user_id", userID)
+      .single();
+
+    if (userError) {
+      console.error("Error fetching user data:", userError);
+      return;
+    }
+
+    const existingCCAs = userData.ccas || [];
+    const updatedCCAs = [...existingCCAs, { cca: ccaID, manager: true }];
+
+    const { data: updateData, error: updateError } = await supabase
+      .from("users")
+      .update({ ccas: updatedCCAs })
+      .eq("user_id", userID);
+
+    if (updateError) {
+      console.error("Error updating ccas array:", updateError);
+      return;
+    }
+
+    console.log("Array updated successfully:", updateData);
+  }
 
   async function updateInformation(event) {
     event.preventDefault(); // Prevent form submission behavior
@@ -76,6 +104,15 @@ export default function UpdateProfile({ userID }) {
     <>
       <div className="CompleteProfile">
         <h1>Update Your Profile</h1>
+        <Button
+          onClick={() =>
+            updateCCARoles("1bc3b3f3-d81f-4910-acd0-b6a342014ef2", userID)
+          }
+        >
+          {" "}
+          Insert CCA data
+        </Button>
+
         <form>
           <div>
             <p> Back-up Email: </p>

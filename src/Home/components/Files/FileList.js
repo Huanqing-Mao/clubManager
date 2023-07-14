@@ -10,6 +10,7 @@ import NewFolderPop from "./NewFolderPop";
 export default function FileList( { userID, ccaID, manager } ) {
   const [folderList, setFolderList] = useState([]);
   const [folderName, setFolderName] = useState("");
+  const ccaName = "folder-";
 
   // each one handle click: go to respective pages showing list of files
   async function listFolders() {
@@ -47,7 +48,7 @@ export default function FileList( { userID, ccaID, manager } ) {
     // setrename = "" when closing the popover
 
     getItem(
-      item.includes("folder-") ? item.replace("folder-", "") : item,
+      item.includes(ccaName) ? item.replace(ccaName, "") : item,
       item,
       <FolderOutlined />,
       {

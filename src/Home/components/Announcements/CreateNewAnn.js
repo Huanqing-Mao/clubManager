@@ -37,7 +37,7 @@ export default function CreateNewAnn({ userID, hide }) {
           console.error("Error creating announcement:", error.message);
           message.error("No access.");
         } else {
-          console.log("Announcement created successfully");
+          //console.log("Announcement created successfully");
           message.success("Announcement Created Successfully!");
           setTitle("");
           setContent("");

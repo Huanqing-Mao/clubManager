@@ -87,6 +87,7 @@ export default function TopBar({
     setBanner(e.key);
   }
 
+
   function goProfile() {
     setActiveSection("Profile");
     setBanner("Personal Profile");
@@ -118,6 +119,7 @@ export default function TopBar({
           mode="horizontal" 
           items={sections} 
           style={{ width: 1350 }}/>
+
         </nav>
       </div>
     </div>

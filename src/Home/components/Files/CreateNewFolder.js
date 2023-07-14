@@ -15,6 +15,7 @@ import ignore from "./ignore";
 
 export default function CreateNewFolder({ nameList, hide }) {
   const [fileName, setFileName] = useState("");
+  const ccaName = "folder-";
 
   const handleFilenameInputChange = (event) => {
     setFileName(event.target.value);
@@ -22,7 +23,7 @@ export default function CreateNewFolder({ nameList, hide }) {
 
   const handleUpload = async () => {
     if (fileName) {
-      const path = "folder-" + fileName;
+      const path = ccaName + fileName;
       if (nameList.includes(path)) {
         console.log(nameList);
         message.error("Name already exists!");

@@ -17,6 +17,7 @@ export default function FilesInFolder({
   manager
 }) {
   const [fileList, setFileList] = useState([]);
+  const ccaName = "folder-";
   const cancel = (e) => {
     //console.log(e);
     message.error("Delete action cancelled");
@@ -105,8 +106,8 @@ export default function FilesInFolder({
               fontFamily: "BlinkMacSystemFont, Roboto, sans-serif"
             }}
           >
-            {folderName.includes("folder-")
-              ? folderName.replace("folder-", "")
+            {folderName.includes(ccaName)
+              ? folderName.replace(ccaName, "")
               : folderName}
           </h2>
 
@@ -169,8 +170,8 @@ export default function FilesInFolder({
               fontFamily: "BlinkMacSystemFont, Roboto, sans-serif"
             }}
           >
-            {folderName.includes("folder-")
-              ? folderName.replace("folder-", "")
+            {folderName.includes(ccaName)
+              ? folderName.replace(ccaName, "")
               : folderName}
           </h2>
           <div style={{ marginTop: "100px" }}>

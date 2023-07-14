@@ -21,7 +21,12 @@ export default function AnnList({ userID, ccaID, manager }) {
   const [keyword, setKeyword] = useState("");
   const [filterWord, setFilterWord] = useState("");
   const [username, setUsername] = useState("");
-  console.log("ID HERE", userID);
+  const [currentPage, setCurrentPage] = useState(1);
+  const onPageChange = (page) => {
+    console.log(page);
+    setCurrentPage(page);
+  };
+  //console.log("ID HERE", userID);
 
   const cancel = (e) => {
     //console.log(e);
@@ -35,6 +40,7 @@ export default function AnnList({ userID, ccaID, manager }) {
         `ann_id, user_id,title,
           content,
           created_at,
+          edited,
           users(user_id, name)`
       );
       //console.log("data: ", data);
@@ -50,7 +56,7 @@ export default function AnnList({ userID, ccaID, manager }) {
         );
 
         setAnnList(sortedData);
-        console.log("annlist", annList);
+        //console.log("annlist", annList);
       }
     } catch (error) {
       console.error("Error fetching announcements:", error.message);
@@ -59,20 +65,20 @@ export default function AnnList({ userID, ccaID, manager }) {
 
   async function getProfile(userID) {
     try {
-      console.log(userID);
+      //console.log(userID);
       const { data, error } = await supabase
         .from("users")
         .select("name")
         .eq("user_id", userID)
         .single();
-      console.log(data);
+      //console.log(data);
 
       if (error) {
         console.error("Error fetching username:", error);
         return "";
       }
 
-      console.log(data.name);
+      //console.log(data.name);
 
       return data.name;
     } catch (error) {
@@ -83,12 +89,12 @@ export default function AnnList({ userID, ccaID, manager }) {
   useEffect(() => {
     fetchAnnouncements();
     getProfile(userID).then((value) => setUsername(value));
-    console.log(username);
+    //console.log(username);
   }, [annList.length]);
 
   async function deleteRow(user_id, created_at, username) {
     try {
-      console.log(username);
+      //console.log(username);
       if (!username || username === null) {
         message.error("No access.");
       } else {
@@ -131,7 +137,7 @@ export default function AnnList({ userID, ccaID, manager }) {
 
   const [current, setCurrent] = useState(1);
   const onChange = (page) => {
-    console.log(page);
+    //console.log(page);
     setCurrent(page);
   };
 
@@ -153,6 +159,12 @@ export default function AnnList({ userID, ccaID, manager }) {
           width: 350
         }}
       />
+      <p></p>
+      <Pagination
+        current={currentPage}
+        onChange={onPageChange}
+        total={Math.ceil(annList.length / 3) * 10}
+      />
 
       {annList.length > 0 ? (
         annList[0] === "empty" ? (
@@ -163,6 +175,7 @@ export default function AnnList({ userID, ccaID, manager }) {
         ) : filterWord ? (
           annList
             .filter((item) => filterContent(item, filterWord))
+            .slice((currentPage - 1) * 3, currentPage * 3)
             .map((item) => {
               //console.log(item);
               const dateObj = new Date(item.created_at);
@@ -192,7 +205,7 @@ export default function AnnList({ userID, ccaID, manager }) {
                         opacity: 0.5
                       }}
                     >
-                      Created by: {item.users.name}
+                      {item.edited ? "Edited" : "Created"} by: {item.users.name}
                     </p>
                     <p
                       style={{
@@ -201,7 +214,7 @@ export default function AnnList({ userID, ccaID, manager }) {
                         opacity: 0.5
                       }}
                     >
-                      Created at : {formattedDate}
+                      {item.edited ? "Edited" : "Created"} at : {formattedDate}
                     </p>
 
                     {manager === true ?
@@ -235,45 +248,51 @@ export default function AnnList({ userID, ccaID, manager }) {
             })
         ) : (
           <div>
-            {annList.map((item) => {
-              const dateObj = new Date(item.created_at);
+            {/*.slice((currentPage - 1) * 2, currentPage * 2) */}
+            {annList
+              .slice((currentPage - 1) * 3, currentPage * 3)
+              .map((item) => {
+                const dateObj = new Date(item.created_at);
 
-              const options = {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "numeric"
-              };
-              const formattedDate = dateObj.toLocaleDateString(
-                "en-GB",
-                options
-              );
-              // just need to slice according to page number
-              return (
-                <div style={{ whiteSpace: "pre-line" }}>
-                  <p></p>
+                const options = {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric"
+                };
+                const formattedDate = dateObj.toLocaleDateString(
+                  "en-GB",
+                  options
+                );
+                // just need to slice according to page number
+                return (
+                  <div style={{ whiteSpace: "pre-line" }}>
+                    <p></p>
 
-                  <Card title={item.title}>
-                    <p> {item.content}</p>
-                    <p
-                      style={{
-                        fontSize: "80%",
-                        fontStyle: "italic",
-                        opacity: 0.5
-                      }}
-                    >
-                      Created by: {item.users.name}
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "80%",
-                        fontStyle: "italic",
-                        opacity: 0.5
-                      }}
-                    >
-                      Created at : {formattedDate}
-                    </p>
+                    <Card title={item.title}>
+                      <p> {item.content}</p>
+                      <p
+                        style={{
+                          fontSize: "80%",
+                          fontStyle: "italic",
+                          opacity: 0.5
+                        }}
+                      >
+                        {item.edited ? "Edited" : "Created"} by:{" "}
+                        {item.users.name}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: "80%",
+                          fontStyle: "italic",
+                          opacity: 0.5
+                        }}
+                      >
+                        {item.edited ? "Edited" : "Created"} at :{" "}
+                        {formattedDate}
+                      </p>
+
 
                     {manager === true ? 
                     <>
@@ -304,8 +323,8 @@ export default function AnnList({ userID, ccaID, manager }) {
                 </div>
               );
             })}
+
             <p></p>
-            {/*<Pagination current={current} onChange={onChange} total={50} />*/}
           </div>
         )
       ) : (

@@ -17,14 +17,15 @@ export default function EditAnn({ content, title, annID, hide, userID }) {
   async function updateRow() {
     const timeCreated = new Date();
     try {
-      console.log("userID:", userID);
+      //console.log("userID:", userID);
       const { data, error } = await supabase
         .from("Announcements")
         .update({
           created_at: timeCreated,
           user_id: userID,
           title: displayTitle,
-          content: displayContent
+          content: displayContent,
+          edited: true
         })
         .eq("ann_id", annID);
 

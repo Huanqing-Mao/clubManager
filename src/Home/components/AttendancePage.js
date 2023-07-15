@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 //import { supabase } from "../../supabase";
-import { Card, Space, Timeline, Popover, Button } from 'antd';
+import { Card, Space, Timeline, Popover, Button, Spin } from 'antd';
 import CreateEvent from './Events/CreateEvent';
 import EventDetails from "./Events/EventDetails";
 import AttendanceList from "./Events/AttendanceList";
@@ -18,7 +18,7 @@ function AttendancePage( { currentID, ccaID, manager } ) {
     };
 
     const content = (
-        <CreateEvent currentID={currentID} newEvent={newEvent} hide={hide}/>
+        <CreateEvent currentID={currentID} newEvent={newEvent} hide={hide} ccaID={ccaID}/>
     );
 
     const handleOpenChange = (newOpen) => {
@@ -54,7 +54,7 @@ function AttendancePage( { currentID, ccaID, manager } ) {
     */
 
     useEffect(() => {
-        fetchEvents().then((value) => {
+        fetchEvents(ccaID).then((value) => {
             setEvents(value);
             setLoad('loaded');});
         console.log(events);
@@ -72,8 +72,10 @@ function AttendancePage( { currentID, ccaID, manager } ) {
 
     if (load === 'loading') {
         return (
-            <div>
-                <h2>Loading...</h2>
+            <div className="centered">
+                <Spin tip="Loading" size="large">
+                <div className="content" />
+                </Spin>
             </div>
         )
     } else if (load === 'loaded' && !events.length) {

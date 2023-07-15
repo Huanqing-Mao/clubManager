@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { supabase } from "../../../supabase";
-import { Checkbox, Divider, Button, message } from "antd";
+import { Checkbox, Divider, Button, message, Spin } from "antd";
 
 function EventDetails({ eventID, currentID, deleteEvent, ccaID, manager }) {
   const [event, setEvent] = useState("null");
@@ -124,7 +124,9 @@ function EventDetails({ eventID, currentID, deleteEvent, ccaID, manager }) {
   } else if (load === "loading") {
     return (
       <div>
-        <h2>Loading...</h2>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
       </div>
     );
   } else {

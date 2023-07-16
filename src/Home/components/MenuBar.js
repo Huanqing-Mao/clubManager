@@ -3,7 +3,8 @@ import {
   UserOutlined,
   LogoutOutlined,
   MailOutlined,
-  SettingOutlined
+  SettingOutlined,
+  SwapOutlined
 } from "@ant-design/icons";
 import { Menu } from "antd";
 
@@ -22,6 +23,10 @@ export default function Menubar({ setPage }) {
       type: "divider"
     },
     getItem("Update Profile", "update", <EditOutlined />),
+    {
+      type: "divider"
+    },
+    getItem("Switch CCA", "switch", <SwapOutlined />),
     {
       type: "divider"
     },

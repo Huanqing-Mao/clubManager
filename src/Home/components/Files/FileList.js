@@ -7,12 +7,27 @@ import FilesMenu from "./FilesMenu";
 import selectImage from "./select_folder.png";
 import NewFolderPop from "./NewFolderPop";
 
-export default function FileList( { userID, ccaID, manager } ) {
+export default function FileList({ userID, ccaID, manager }) {
   const [folderList, setFolderList] = useState([]);
   const [folderName, setFolderName] = useState("");
-  const ccaName = "folder-";
+  const [ccaName, setCCAName] = useState("impossible");
 
   // each one handle click: go to respective pages showing list of files
+  async function getCCAName() {
+    const { data: CCA, errorCCA } = await supabase
+      .from("CCA")
+      .select("*")
+      .eq("cca_id", ccaID)
+      .single();
+
+    if (errorCCA) {
+      console.error("Error getting cca name:", errorCCA.message);
+      return;
+    }
+    console.log("cca name:", CCA.cca_name);
+    setCCAName(CCA.cca_name + "-");
+  }
+
   async function listFolders() {
     try {
       const { data, error } = await supabase.storage.from("cca").list("");
@@ -22,7 +37,7 @@ export default function FileList( { userID, ccaID, manager } ) {
       }
 
       const folders = data
-        .filter((item) => item.name.includes("folder"))
+        .filter((item) => item.name.includes(ccaName))
         .map((item) => item.name);
       setFolderList(folders);
       console.log("Folders:", folders);
@@ -30,9 +45,13 @@ export default function FileList( { userID, ccaID, manager } ) {
       console.error("Error listing folders:", error.message);
     }
   }
+
+  useEffect(() => {
+    getCCAName();
+  }, []);
   useEffect(() => {
     listFolders();
-  }, []);
+  }, [ccaName]);
 
   function getItem(label, key, icon, type) {
     return {
@@ -60,8 +79,15 @@ export default function FileList( { userID, ccaID, manager } ) {
   return (
     <div>
       <h2>CCA Resources:</h2>
-      {manager === true ?
-      <NewFolderPop listFolders={listFolders} nameList={folderList} /> : <></> }
+      {manager === true ? (
+        <NewFolderPop
+          listFolders={listFolders}
+          nameList={folderList}
+          ccaName={ccaName}
+        />
+      ) : (
+        <></>
+      )}
 
       <div className="files-list">
         <div className="files-menu">
@@ -75,6 +101,7 @@ export default function FileList( { userID, ccaID, manager } ) {
               listFolders={listFolders}
               setFolderName={setFolderName}
               manager={manager}
+              ccaName={ccaName}
             />
           ) : (
             <div>

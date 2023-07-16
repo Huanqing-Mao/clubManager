@@ -623,3 +623,42 @@ ul {
   opacity: 0.7;
 }
 
+.centered {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  text-align: center;
+}
+
+.content {
+  padding: 50px;
+  border-radius: 4px;
+}
+
+.CCAdashboard {
+}
+
+.CCAdashboard h1 {
+  font-family: "Arial Black", sans-serif;
+  text-align: center;
+  vertical-align: middle;
+  padding: 60px 0px;
+}
+
+.CCAbuttons {
+  margin-left: 70px;
+}
+
+.CCAcard {
+  margin: 20px;
+}
+
+.ccaID {
+  text-align: center;
+  padding: 30px 0px;
+  background-color: rgb(231, 231, 231);
+  width: 1000px;
+  margin-left: 200px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}

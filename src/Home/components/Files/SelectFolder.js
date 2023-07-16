@@ -7,10 +7,11 @@ export default function SelectFolder({
   setDefault,
   currentFolder,
   toFolder,
-  setFolder
+  setFolder,
+  ccaName
 }) {
   const [folderList, setFolderList] = useState([]);
-  const ccaName = "folder-";
+  //const ccaName = "folder-";
 
   const handleChange = (value) => {
     setDefault(value);
@@ -32,7 +33,7 @@ export default function SelectFolder({
       }
 
       const folders = data
-        .filter((item) => item.name.includes("folder"))
+        .filter((item) => item.name.includes(ccaName))
         .filter((item) => item.name !== currentFolder)
         .map((item) => item.name);
       console.log(currentFolder);

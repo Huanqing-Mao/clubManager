@@ -1,4 +1,4 @@
-import { Card, Button, Popover, message } from "antd";
+import { Card, Button, Popover, message, Spin } from "antd";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase";
 import PollQuestions from "./Polls/PollQs";
@@ -34,6 +34,7 @@ function PollPage( { userID, ccaID, manager } ) {
       .from("Polls")
       .select("*")
       .is("active", true)
+      .eq("cca_id", ccaID)
       .order("deadline", { ascending: false });
     setPolls(Polls);
     setLoad("loaded");
@@ -65,8 +66,10 @@ function PollPage( { userID, ccaID, manager } ) {
 
   if (load === "loading") {
     return (
-      <div>
-        <h2>Loading...</h2>
+      <div className="centered">
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
       </div>
     );
   } else if (load === "loaded" && !polls.length) {
@@ -96,7 +99,8 @@ function PollPage( { userID, ccaID, manager } ) {
       deadline: values.deadline,
       active: true,
       poll_name: values.poll_name,
-      question: values.question
+      question: values.question,
+      cca_id: cca
     });
 
     if (error) {

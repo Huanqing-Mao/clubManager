@@ -4,7 +4,7 @@ import { useState } from "react";
 import FinList from "./Finlist";
 const { Search } = Input;
 
-export default function FinRecords() {
+export default function FinRecords({ userID, manager, ccaID }) {
   const [recordPage, setRecordPage] = useState("");
   const [year, setYear] = useState("");
   const onClick = () => {
@@ -18,7 +18,12 @@ export default function FinRecords() {
     <div>
       <p></p>
       {recordPage === "form" ? (
-        <FinForm setRecordPage={setRecordPage} />
+        <FinForm
+          setRecordPage={setRecordPage}
+          userID={userID}
+          manager={manager}
+          ccaID={ccaID}
+        />
       ) : (
         <div>
           <Button type="primary" onClick={onClick}>
@@ -37,7 +42,7 @@ export default function FinRecords() {
             }}
           />
           <p></p>
-          <FinList />
+          <FinList userID={userID} manager={manager} ccaID={ccaID} />
         </div>
       )}
     </div>

@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
 import { message, Table, Space, Spin, Button } from "antd";
 
-export default function MemberList() {
+export default function MemberList({ userID, manager, ccaID }) {
   const [load, setLoad] = useState(true);
   const [memberList, setMemberList] = useState([]);
   const [displayList, setDisplayList] = useState([]);
-  const ccaid = "1bc3b3f3-d81f-4910-acd0-b6a342014ef2";
+  const ccaid = ccaID;
   const columns = [
     {
       title: "Name",
@@ -123,9 +123,9 @@ export default function MemberList() {
         </div>
       ) : (
         <div>
-          <Button type="primary" disabled={true}>
+          {/*<Button type="primary" disabled={true}>
             Visualise Profile
-          </Button>
+          </Button> */}
           <p></p>
           <Table
             dataSource={displayList}

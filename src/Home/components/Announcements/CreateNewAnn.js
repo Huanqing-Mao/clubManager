@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const { TextArea } = Input;
 
-export default function CreateNewAnn({ userID, hide }) {
+export default function CreateNewAnn({ userID, hide, ccaID }) {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const handleTitleChange = (event) => {
@@ -29,7 +29,8 @@ export default function CreateNewAnn({ userID, hide }) {
             user_id: userID,
             created_at: timeCreated,
             title: title,
-            content: content
+            content: content,
+            cca_id: ccaID
           }
         ]);
 

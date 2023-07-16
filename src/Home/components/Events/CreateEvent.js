@@ -44,10 +44,10 @@ const onOk = (value) => {
 
 const { TextArea } = Input;
 
-function CreateEvent({ currentID, newEvent, hide }) {
+function CreateEvent({ currentID, newEvent, hide, ccaID }) {
   function onFinish(values) {
     console.log("Received values of form:", values);
-    newEvent(values, currentID);
+    newEvent(values, currentID, ccaID);
     hide();
   }
 

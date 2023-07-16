@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Divider, Alert } from "antd";
 import { supabase } from "../supabase";
 
-function HomePage({ handleBackNav, userID, ccaID, manager }) {
+function HomePage({ handleBackNav, userID, ccaID, manager, setCCA, setManager }) {
   const [activeSection, setActiveSection] = useState("Home");
   const [currentBanner, setBanner] = useState("Welcome Back!");
   const [info, setInfo] = useState("");
@@ -81,6 +81,8 @@ function HomePage({ handleBackNav, userID, ccaID, manager }) {
           userID={userID}
           manager={manager}
           ccaID={ccaID}
+          setCCA={setCCA}
+          setManager={setManager}
         />
       </div>
     </div>

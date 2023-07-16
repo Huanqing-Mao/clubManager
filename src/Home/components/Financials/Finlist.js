@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../supabase";
 import { DeleteOutlined } from "@ant-design/icons";
 
-export default function FinList() {
+export default function FinList( { userID, manager, ccaID } ) {
   const [finList, setFinList] = useState([]);
   //const [eventID, setEventID] = useState("");
   const columns = [
@@ -56,7 +56,8 @@ export default function FinList() {
   async function fetchList() {
     let { data: Financial_Event, error } = await supabase
       .from("Financial_Event")
-      .select(`*, Tags(tag_id, tag_name)`);
+      .select(`*, Tags(tag_id, tag_name)`)
+      .eq("cca_id", ccaID);
     //console.log("Fin Events", Financial_Event);
 
     if (Financial_Event.length >= 1) {

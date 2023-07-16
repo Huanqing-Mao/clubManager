@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import HomePage from "./Home/HomePage";
 import CompleteProfile from "./Home/components/CompleteProfile";
 import CheckCCA from "./CheckCCA";
+import Enter from "./Enter";
 import { Spin } from "antd";
 
 function CheckProfile({ userID }) {
@@ -54,7 +55,7 @@ function CheckProfile({ userID }) {
     console.log(userID);
     return (
       <div>
-        <CheckCCA userID={userID} />
+        <Enter userID={userID} />
       </div>
     );
   } else {

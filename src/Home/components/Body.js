@@ -17,7 +17,9 @@ export default function Body({
   setBanner,
   userID,
   manager,
-  ccaID
+  ccaID,
+  setCCA,
+  setManager
 }) {
   let content;
 
@@ -41,13 +43,13 @@ export default function Body({
   } else if (activeSection === "Files") {
     content = <FilesMain userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Profile") {
-    content = <Profile userID={userID} manager={manager} ccaID={ccaID} />;
+    content = <Profile userID={userID} manager={manager} ccaID={ccaID} setCCA={setCCA} setManager={setManager}/>;
   } else if (activeSection === "Announcements") {
     content = <AnnMain userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Financials") {
-    content = <FinMain />;
+    content = <FinMain userID={userID} manager={manager} ccaID={ccaID}/>;
   } else if (activeSection === "Member Profile") {
-    content = <MemberMain />;
+    content = <MemberMain userID={userID} manager={manager} ccaID={ccaID}/>;
   }
 
   return <div className="main">{content}</div>;

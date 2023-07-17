@@ -48,9 +48,19 @@ export default function FileList({ userID, ccaID, manager }) {
   useEffect(() => {
     getCCAName();
   }, []);
-  useEffect(() => {
+
+  /*useEffect(() => {
     listFolders();
     console.log("Folders:", folderList);
+  }, [ccaName]);*/
+  useEffect(() => {
+    // Use async/await to ensure listFolders completes before logging
+    const fetchFolders = async () => {
+      await listFolders();
+      console.log("Folders:", folderList);
+    };
+
+    fetchFolders();
   }, [ccaName]);
 
   function getItem(label, key, icon, type) {

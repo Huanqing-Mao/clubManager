@@ -30,17 +30,26 @@ export default function CreateCCA({ userID }) {
   //   const createCCA = () => {};
 
   async function newCCA(values) {
-    const uniqueId = uuidv4();
+    const { data: data1, error1 } = await supabase.from("CCA")
+    .select()
+    .eq("cca_name", values.cca_name);
+    console.log("data1: ", data1);
 
-    const { data, error } = await supabase.from("CCA").insert({
-      cca_id: uniqueId,
-      cca_name: values.cca_name
-    });
-
-    if (error) {
-      message.error("Failed to create the CCA.");
+    if (data1.length > 0) {
+      console.log("CCA exist:", data1);
+      message.error("This CCA name has already been used. Please try another name.")
     } else {
-      setManager(uniqueId);
+      const uniqueId = uuidv4();
+      const { data, error } = await supabase.from("CCA").insert({
+        cca_id: uniqueId,
+        cca_name: values.cca_name
+      });
+    
+      if (error) {
+        message.error("Failed to create the CCA.");
+      } else {
+        setManager(uniqueId);
+      }
     }
 
     // You can return any relevant data after creating the new event

@@ -29,8 +29,9 @@ export default function FinRecords({ userID, manager, ccaID }) {
           <Button type="primary" onClick={onClick}>
             Create New Record
           </Button>
-          <Divider type="vertical" />
 
+          {/*
+          <Divider type="vertical" />
           <Search
             placeholder="Search Year"
             onSearch={onSearch}
@@ -40,7 +41,8 @@ export default function FinRecords({ userID, manager, ccaID }) {
             style={{
               width: 200
             }}
-          />
+          /> */}
+
           <p></p>
           <FinList userID={userID} manager={manager} ccaID={ccaID} />
         </div>

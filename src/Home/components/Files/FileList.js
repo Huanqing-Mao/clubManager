@@ -40,7 +40,6 @@ export default function FileList({ userID, ccaID, manager }) {
         .filter((item) => item.name.includes(ccaName))
         .map((item) => item.name);
       setFolderList(folders);
-      console.log("Folders:", folders);
     } catch (error) {
       console.error("Error listing folders:", error.message);
     }
@@ -51,6 +50,7 @@ export default function FileList({ userID, ccaID, manager }) {
   }, []);
   useEffect(() => {
     listFolders();
+    console.log("Folders:", folderList);
   }, [ccaName]);
 
   function getItem(label, key, icon, type) {

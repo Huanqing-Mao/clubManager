@@ -16,52 +16,50 @@ const formItemLayoutWithOutLabel = {
   }
 };
 
-export default function CreateCCA( { userID } ) {
-//   const [code, setCode] = useState("");
-//   const [newCCAName, setNewCCAName] = useState("");
-//   const onCodeChange = (event) => {
-//     setCode(event.target.value);
-//   };
+export default function CreateCCA({ userID }) {
+  //   const [code, setCode] = useState("");
+  //   const [newCCAName, setNewCCAName] = useState("");
+  //   const onCodeChange = (event) => {
+  //     setCode(event.target.value);
+  //   };
 
-//   const onNameChange = (event) => {
-//     setNewCCAName(event.target.value);
-//   };
-//   const joinCCA = () => {};
-//   const createCCA = () => {};
+  //   const onNameChange = (event) => {
+  //     setNewCCAName(event.target.value);
+  //   };
+  //   const joinCCA = () => {};
+  //   const createCCA = () => {};
 
   async function newCCA(values) {
     const uniqueId = uuidv4();
 
     const { data, error } = await supabase.from("CCA").insert({
       cca_id: uniqueId,
-      cca_name: values.cca_name,
-      managers: null
+      cca_name: values.cca_name
     });
-  
+
     if (error) {
       message.error("Failed to create the CCA.");
     } else {
       setManager(uniqueId);
     }
-  
+
     // You can return any relevant data after creating the new event
   }
 
   async function setManager(cca) {
     const { data, error } = await supabase.from("Records").insert({
-        cca_id: cca,
-        user_id: userID,
-        manager: true
+      cca_id: cca,
+      user_id: userID,
+      manager: true
     });
 
     if (error) {
-        message.error("Failed to set manager.")
+      message.error("Failed to set manager.");
     } else {
-        message.success("Successfully created");
-        window.location.reload(true);
+      message.success("Successfully created");
+      window.location.reload(true);
     }
   }
-
 
   return (
     <div>
@@ -83,10 +81,10 @@ export default function CreateCCA( { userID } ) {
           label="CCA Name"
           name="cca_name"
           rules={[
-          {
-            required: true,
-            message: "This field is required."
-          }
+            {
+              required: true,
+              message: "This field is required."
+            }
           ]}
         >
           <Input placeholder="Enter CCA Name" />

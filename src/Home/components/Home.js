@@ -31,7 +31,7 @@ function Home({
           <div className="timeline">Event Timeline</div>
         </Card>
         <p></p>
-        <Timeline currentID={userID} ccaID={ccaID} manager={manager}/>
+        <Timeline currentID={userID} ccaID={ccaID} manager={manager} />
       </div>
       <div className="AnnSection">
         <Card
@@ -46,7 +46,7 @@ function Home({
             <p></p>
           </div>
         </Card>
-        <AnnMain userID={userID} ccaID={ccaID} manager={manager}/>
+        <AnnMain userID={userID} ccaID={ccaID} manager={manager} />
       </div>
     </div>
   );

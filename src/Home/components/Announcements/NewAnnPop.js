@@ -3,7 +3,7 @@ import { useState } from "react";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import CreateNewAnn from "./CreateNewAnn";
 
-export default function NewAnnPop({ userID, fetchAnnouncements }) {
+export default function NewAnnPop({ userID, fetchAnnouncements, ccaID }) {
   const Pop = () => {
     const [open, setOpen] = useState(false);
     const hide = () => {
@@ -17,7 +17,7 @@ export default function NewAnnPop({ userID, fetchAnnouncements }) {
       <Popover
         content={
           <div>
-            <CreateNewAnn userID={userID} hide={hide} />
+            <CreateNewAnn userID={userID} hide={hide} ccaID={ccaID} />
             <p></p>
             <a onClick={hide}>Close</a>
           </div>

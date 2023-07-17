@@ -10,13 +10,14 @@ export async function fetchEvents() {
     return es;
 };
 
-export async function newEvent(values, currentID) {
+export async function newEvent(values, currentID, ccaID) {
     const { nerror } = await supabase.from("Events").insert({
       created_by: currentID,
       date_time: values.date_time,
       event_name: values.event_name,
       details: values.details,
-      active: true
+      active: true,
+      cca_id: ccaID
     });
   
     // You can return any relevant data after creating the new event

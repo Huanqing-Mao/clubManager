@@ -50,7 +50,7 @@ function Timeline({ currentID, ccaID, manager }) {
   */
 
   useEffect(() => {
-    const data = fetchEvents().then((value) => setEvents(value));
+    const data = fetchEvents(ccaID).then((value) => setEvents(value));
     //console.log(data);
     //setEvents(data);
     //console.log("current events");

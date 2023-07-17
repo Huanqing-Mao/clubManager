@@ -17,6 +17,8 @@ export default function App() {
   }, [setSession]);
 
   return (
-    <div>{session ? <CheckProfile userID={session.user.id} /> : <LoginPage />}</div>
+    <div>
+      {session ? <CheckProfile userID={session.user.id} /> : <LoginPage />}
+    </div>
   );
 }

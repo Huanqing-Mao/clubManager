@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import HomePage from "./Home/HomePage";
 import CompleteProfile from "./Home/components/CompleteProfile";
 import CheckCCA from "./CheckCCA";
+import Enter from "./Enter";
+import { Spin } from "antd";
 
 function CheckProfile({ userID }) {
   const [profile, setProfile] = useState(null);
@@ -43,7 +45,9 @@ function CheckProfile({ userID }) {
     console.log("profile still loading")
     return (
       <div>
-        <p>Loading...</p>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
       </div>
     );
   } else if (profile === true) {
@@ -51,12 +55,12 @@ function CheckProfile({ userID }) {
     console.log(userID);
     return (
       <div>
-        <CheckCCA userID={userID} />
+        <Enter userID={userID} />
       </div>
     );
   } else {
     return (
-      <div>
+      <div className="centered">
         <CompleteProfile userID={userID} />
       </div>
     );

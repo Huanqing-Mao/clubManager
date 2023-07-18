@@ -27,7 +27,7 @@ async function fetchUsernameById(userId) {
   }
 }
 
-export default function Profile({ userID }) {
+export default function Profile({ userID, manager, ccaID, setCCA, setManager }) {
   const [name, setName] = useState("User");
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function Profile({ userID }) {
     </div>
   ) : (
     <div>
-      <CompletedProfile userID={userID} />
+      <CompletedProfile userID={userID} ccaID={ccaID} setCCA={setCCA} setManager={setManager} manager={manager}/>
     </div>
   );
 }

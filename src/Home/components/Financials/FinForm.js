@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const { TextArea } = Input;
 
-export default function FinForm({ setRecordPage }) {
+export default function FinForm({ setRecordPage, userID, manager, ccaID }) {
   const [form] = Form.useForm();
 
   const semList = [1, 2];
@@ -265,7 +265,8 @@ export default function FinForm({ setRecordPage }) {
               logistics: logistics,
               welfare: welfare,
               tag_id: tag ? tag : newTag,
-              total_cost: totalAmount
+              total_cost: totalAmount,
+              cca_id: ccaID
             }
           ])
           .select();
@@ -408,7 +409,7 @@ export default function FinForm({ setRecordPage }) {
               onChange={onEventNameChange}
             />
           </Form.Item>
-          <Form.Item label="Academic Year">
+          <Form.Item label="Academic Year (e.g. Put 2023 for AY23/24)">
             <Input
               value={ay}
               placeholder="Number Input"

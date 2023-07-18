@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import MoveFiles from "./MoveFiles";
 
-export default function MovePop({ folderName, fileName, fetchFiles }) {
+export default function MovePop({ folderName, fileName, fetchFiles, ccaName }) {
   const Pop = () => {
     const [open, setOpen] = useState(false);
     const hide = () => {
@@ -21,6 +21,7 @@ export default function MovePop({ folderName, fileName, fetchFiles }) {
               folderName={folderName}
               fileName={fileName}
               hide={hide}
+              ccaName={ccaName}
             />
             <p> </p>
             <a onClick={hide}>Close</a>

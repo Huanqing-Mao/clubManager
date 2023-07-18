@@ -1,10 +1,11 @@
 import UpdateProfile from "./UpdateProfile";
 import DisplayProfile from "./DisplayProfile";
 import MenuBar from "./MenuBar";
+import CCAdashboard from "../../CCAdashboard";
 import { useState } from "react";
 import { supabase } from "../../supabase";
 
-export default function CompletedProfile({ userID }) {
+export default function CompletedProfile({ userID, setCCA, setManager, ccaID, manager }) {
   const [page, setPage] = useState("myProfile");
   const handleSignOut = async () => {
     try {
@@ -26,8 +27,14 @@ export default function CompletedProfile({ userID }) {
             Log Out
           </button>
         </>
-      ) : (
+      ) : page === "update" ? (
         <UpdateProfile userID={userID} />
+      ) : (
+        <div>
+          <br></br>
+          <br></br>
+          <CCAdashboard userID={userID} setChoice={setCCA} setManager={setManager} choice={ccaID} manager={manager}/>
+        </div>
       )}
     </div>
   );

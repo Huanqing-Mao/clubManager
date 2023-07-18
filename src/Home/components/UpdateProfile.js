@@ -104,14 +104,14 @@ export default function UpdateProfile({ userID }) {
     <>
       <div className="CompleteProfile">
         <h1>Update Your Profile</h1>
-        <Button
+        {/*<Button
           onClick={() =>
             updateCCARoles("1bc3b3f3-d81f-4910-acd0-b6a342014ef2", userID)
           }
         >
           {" "}
           Insert CCA data
-        </Button>
+        </Button> */}
 
         <form>
           <div>

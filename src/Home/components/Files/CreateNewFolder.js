@@ -13,9 +13,8 @@ import RadioOptions from "./RadioOptions";
 import { Card } from "antd";
 import ignore from "./ignore";
 
-export default function CreateNewFolder({ nameList, hide }) {
+export default function CreateNewFolder({ nameList, hide, ccaName }) {
   const [fileName, setFileName] = useState("");
-  const ccaName = "folder-";
 
   const handleFilenameInputChange = (event) => {
     setFileName(event.target.value);

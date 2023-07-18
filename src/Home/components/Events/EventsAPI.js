@@ -1,23 +1,25 @@
 import { supabase } from "../../../supabase";
 import { message } from "antd";
 
-export async function fetchEvents() {
+export async function fetchEvents(ccaID) {
   let { data: es, error } = await supabase
     .from("Events")
     .select("*")
+    .eq("cca_id", ccaID)
     .is("active", true)
     .order("date_time", { ascending: false });
 
   return es;
 }
 
-export async function newEvent(values, currentID) {
+export async function newEvent(values, currentID, ccaID) {
   const { data, error } = await supabase.from("Events").insert({
     created_by: currentID,
     date_time: values.date_time,
     event_name: values.event_name,
     details: values.details,
-    active: true
+    active: true,
+    cca_id: ccaID
   });
 
   if (error) {

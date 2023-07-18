@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FolderAddOutlined } from "@ant-design/icons";
 import CreateNewFolder from "./CreateNewFolder";
 
-export default function NewFolderPop({ listFolders, nameList }) {
+export default function NewFolderPop({ listFolders, nameList, ccaName }) {
   const Pop = () => {
     const [open, setOpen] = useState(false);
     const hide = () => {
@@ -17,7 +17,11 @@ export default function NewFolderPop({ listFolders, nameList }) {
       <Popover
         content={
           <div>
-            <CreateNewFolder nameList={nameList} hide={hide} />
+            <CreateNewFolder
+              nameList={nameList}
+              hide={hide}
+              ccaName={ccaName}
+            />
             <a onClick={hide}>Close</a>
           </div>
         }

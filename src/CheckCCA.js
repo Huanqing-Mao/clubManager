@@ -1,6 +1,8 @@
 import { supabase } from "./supabase";
 import { useState, useEffect } from "react";
+import { Spin } from "antd";
 import Enter from "./Enter";
+import JoinCCA from "./JoinCCA";
 
 function CheckCCA( { userID } ) {
     const [joined, setJoined] = useState(null)
@@ -39,12 +41,13 @@ function CheckCCA( { userID } ) {
         //formStatus();
         getCCA(userID).then((value) => setJoined(value));
         console.log("CCAs:", CCAs);
-    }, [userID]);
+    }, [userID, joined]);
 
     if (joined === false) {
         return(
             <div>
-                <p>Join CCA</p>
+                <h2>You haven't join any CCA yet!</h2>
+                <JoinCCA userID={userID} />
             </div>
         )
     } else if (joined === true) {
@@ -57,8 +60,10 @@ function CheckCCA( { userID } ) {
         )
     } else {
         return(
-            <div>
-                <p>Loading...</p>
+            <div className="centered">
+                <Spin tip="Loading" size="large">
+                <div className="content" />
+                </Spin>
             </div>
         )
     }

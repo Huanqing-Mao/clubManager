@@ -19,7 +19,12 @@ function Timeline({ currentID, ccaID, manager }) {
   };
 
   const content = (
-    <CreateEvent currentID={currentID} newEvent={newEvent} hide={hide} ccaID={ccaID}/>
+    <CreateEvent
+      currentID={currentID}
+      newEvent={newEvent}
+      hide={hide}
+      ccaID={ccaID}
+    />
   );
 
   const eventDetails = (eventID) => (
@@ -50,7 +55,7 @@ function Timeline({ currentID, ccaID, manager }) {
   */
 
   useEffect(() => {
-    const data = fetchEvents().then((value) => setEvents(value));
+    const data = fetchEvents(ccaID).then((value) => setEvents(value));
     //console.log(data);
     //setEvents(data);
     //console.log("current events");
@@ -119,18 +124,21 @@ function Timeline({ currentID, ccaID, manager }) {
   };
   return (
     <div>
-      {manager === true ?
-      <Popover
-        title="Create new event"
-        trigger="click"
-        content={content}
-        open={open}
-        onOpenChange={handleOpenChange}
-      >
-        <Button className="AntButton" icon=<PlusCircleOutlined />>
-          Create Event
-        </Button>
-      </Popover> : <></> }
+      {/*manager === true ? (
+        <Popover
+          title="Create new event"
+          trigger="click"
+          content={content}
+          open={open}
+          onOpenChange={handleOpenChange}
+        >
+          <Button className="AntButton" icon=<PlusCircleOutlined />>
+            Create Event
+          </Button>
+        </Popover>
+      ) : (
+        <></>
+      )*/}
       <Calendar cellRender={cellRender} />
     </div>
   );

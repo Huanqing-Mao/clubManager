@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../../supabase";
-import { message, Table, Space, Spin, Button } from "antd";
+import { message, Table, Space, Spin, Button, Divider } from "antd";
 
-export default function MemberList() {
+export default function MemberList({ userID, manager, ccaID }) {
   const [load, setLoad] = useState(true);
   const [memberList, setMemberList] = useState([]);
   const [displayList, setDisplayList] = useState([]);
-  const ccaid = "1bc3b3f3-d81f-4910-acd0-b6a342014ef2";
+  const ccaid = ccaID;
   const columns = [
     {
       title: "Name",
@@ -32,6 +32,8 @@ export default function MemberList() {
               Set as Manager
             </a>
           )}
+          <Divider type="vertical" />
+          <a onClick={() => removeMember(record.user_id, ccaid)}>Remove</a>
         </Space>
       )
     }
@@ -49,7 +51,7 @@ export default function MemberList() {
       console.error("Error fetching username:", error);
       message.error("Error Setting Manager!");
     } else {
-      message.success("Success!");
+      message.success("Success Removing Member!");
     }
   }
 
@@ -57,6 +59,23 @@ export default function MemberList() {
     const { data, error } = await supabase
       .from("Records")
       .update({ manager: false })
+      .eq("user_id", userid)
+      .eq("cca_id", ccaid)
+      .select();
+
+    if (error) {
+      console.error("Error fetching username:", error);
+      message.error("Error Setting Member!");
+    } else {
+      console.log("success!");
+      message.success("Success!");
+    }
+  }
+
+  async function removeMember(userid, ccaid) {
+    const { data, error } = await supabase
+      .from("Records")
+      .delete()
       .eq("user_id", userid)
       .eq("cca_id", ccaid)
       .select();
@@ -123,9 +142,9 @@ export default function MemberList() {
         </div>
       ) : (
         <div>
-          <Button type="primary" disabled={true}>
+          {/*<Button type="primary" disabled={true}>
             Visualise Profile
-          </Button>
+          </Button> */}
           <p></p>
           <Table
             dataSource={displayList}

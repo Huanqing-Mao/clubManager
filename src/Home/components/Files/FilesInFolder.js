@@ -14,10 +14,11 @@ export default function FilesInFolder({
   folderName,
   listFolders,
   setFolderName,
-  manager
+  manager,
+  ccaName
 }) {
   const [fileList, setFileList] = useState([]);
-  const ccaName = "folder-";
+  //const ccaName = "folder-";
   const cancel = (e) => {
     //console.log(e);
     message.error("Delete action cancelled");
@@ -111,8 +112,11 @@ export default function FilesInFolder({
               : folderName}
           </h2>
 
-          {manager === true ?
-          <UploadPop folderName={folderName} fetchFiles={fetchFiles} /> : <></> }
+          {manager === true ? (
+            <UploadPop folderName={folderName} fetchFiles={fetchFiles} />
+          ) : (
+            <></>
+          )}
           <p></p>
 
           <List
@@ -122,7 +126,6 @@ export default function FilesInFolder({
             renderItem={(item) => (
               <List.Item
                 actions={[
-                  
                   <Button
                     icon=<CloudDownloadOutlined />
                     onClick={() => downloadFile(item.name)}
@@ -130,22 +133,25 @@ export default function FilesInFolder({
                     Download
                   </Button>,
                   manager ? (
-                  <Popconfirm
-                    title="Delete the file"
-                    description="Are you sure to delete this file?"
-                    onConfirm={() => deleteFile(item.name)}
-                    onCancel={cancel}
-                    okText="Delete"
-                    cancelText="Cancel"
-                  >
-                    <Button icon=<DeleteOutlined />>Delete</Button>
-                  </Popconfirm>) : null,
+                    <Popconfirm
+                      title="Delete the file"
+                      description="Are you sure to delete this file?"
+                      onConfirm={() => deleteFile(item.name)}
+                      onCancel={cancel}
+                      okText="Delete"
+                      cancelText="Cancel"
+                    >
+                      <Button icon=<DeleteOutlined />>Delete</Button>
+                    </Popconfirm>
+                  ) : null,
                   manager ? (
-                  <MovePop
-                    folderName={folderName}
-                    fileName={item.name}
-                    fetchFiles={fetchFiles}
-                  />) : null,
+                    <MovePop
+                      folderName={folderName}
+                      fileName={item.name}
+                      fetchFiles={fetchFiles}
+                      ccaName={ccaName}
+                    />
+                  ) : null
                 ]}
               >
                 <div>
@@ -155,13 +161,16 @@ export default function FilesInFolder({
             )}
           />
           <p></p>
-          
-          {manager ?
-          <DeleteFolders
-            folderName={folderName}
-            listFolders={listFolders}
-            setFolderName={setFolderName}
-          /> : <></> }
+
+          {manager ? (
+            <DeleteFolders
+              folderName={folderName}
+              listFolders={listFolders}
+              setFolderName={setFolderName}
+            />
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <div>

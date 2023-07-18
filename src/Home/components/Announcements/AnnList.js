@@ -42,7 +42,7 @@ export default function AnnList({ userID, ccaID, manager }) {
           created_at,
           edited,
           users(user_id, name)`
-      );
+      ).eq("cca_id", ccaID);
       //console.log("data: ", data);
       //console.log(data.length === 0);
 
@@ -146,7 +146,7 @@ export default function AnnList({ userID, ccaID, manager }) {
       <p></p>
       {manager === true ?
       <>
-      <NewAnnPop userID={userID} fetchAnnouncements={fetchAnnouncements} />
+      <NewAnnPop userID={userID} fetchAnnouncements={fetchAnnouncements} ccaID={ccaID}/>
       <Divider type="vertical" />
       </> : <></>}
       <Search

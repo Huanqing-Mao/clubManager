@@ -43,6 +43,7 @@ const onOk = (value) => {
 };
 
 function CreatePoll({ currentID, newPoll, hide, ccaID }) {
+  const [form] = Form.useForm();
   function onFinish(values) {
     console.log("Received values of form:", values);
     if (values.poll_name === null || values.question === null) {
@@ -50,10 +51,13 @@ function CreatePoll({ currentID, newPoll, hide, ccaID }) {
     } else {
       newPoll(values, ccaID);
     }
+    form.resetFields();
+    hide();
   }
 
   return (
     <Form
+      form={form}
       name="dynamic_form_item"
       {...formItemLayoutWithOutLabel}
       onFinish={onFinish}

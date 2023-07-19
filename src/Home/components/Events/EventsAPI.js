@@ -30,18 +30,14 @@ export async function newEvent(values, currentID, ccaID) {
 }
 
 export async function deleteEvent(eventID, username) {
-  if (!username || username === null) {
+  const { data, error } = await supabase
+    .from("Events")
+    .update({ active: false })
+    .eq("id", eventID);
+
+  if (error) {
     message.error("No access.");
   } else {
-    const { data, error } = await supabase
-      .from("Events")
-      .update({ active: false })
-      .eq("id", eventID);
-
-    if (error) {
-      message.error("No access.");
-    } else {
-      message.success("Event deleted.");
-    }
+    message.success("Event deleted.");
   }
 }

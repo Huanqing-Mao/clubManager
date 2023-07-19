@@ -6,7 +6,7 @@ import CreatePoll from "./Polls/CreatePoll";
 import PollResult from "./Polls/PollResult";
 import moment from "moment";
 
-function PollPage( { userID, ccaID, manager } ) {
+function PollPage({ userID, ccaID, manager }) {
   const [polls, setPolls] = useState([]);
   const [error, setError] = useState(null);
   const [choice, setChoice] = useState(null);
@@ -26,7 +26,12 @@ function PollPage( { userID, ccaID, manager } ) {
   };
 
   const content = (
-    <CreatePoll currentID={currentID} newPoll={newPoll} hide={hide} ccaID={ccaID}/>
+    <CreatePoll
+      currentID={currentID}
+      newPoll={newPoll}
+      hide={hide}
+      ccaID={ccaID}
+    />
   );
 
   async function fetchData() {
@@ -66,7 +71,7 @@ function PollPage( { userID, ccaID, manager } ) {
 
   if (load === "loading") {
     return (
-      <div className="centered">
+      <div style={{ marginTop: "100px" }}>
         <Spin tip="Loading" size="large">
           <div className="content" />
         </Spin>
@@ -179,21 +184,27 @@ function PollPage( { userID, ccaID, manager } ) {
           ccaID={ccaID}
           manager={manager}
         />
-        {manager === true ?
-        <PollResult pollID={choice} currentID={currentID} /> : <></> }
+        {manager === true ? (
+          <PollResult pollID={choice} currentID={currentID} />
+        ) : (
+          <></>
+        )}
       </div>
-      {manager === true ?
-      <div className="create_poll">
-        <Popover
-          title="Create new poll"
-          trigger="click"
-          content={content}
-          open={open}
-          onOpenChange={handleOpenChange}
-        >
-          <Button className="AntButton">Create Poll</Button>
-        </Popover>
-      </div> : <></> }
+      {manager === true ? (
+        <div className="create_poll">
+          <Popover
+            title="Create new poll"
+            trigger="click"
+            content={content}
+            open={open}
+            onOpenChange={handleOpenChange}
+          >
+            <Button className="AntButton">Create Poll</Button>
+          </Popover>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

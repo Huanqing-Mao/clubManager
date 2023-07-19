@@ -77,7 +77,7 @@ function AttendancePage({ currentID, ccaID, manager }) {
 
   if (load === "loading") {
     return (
-      <div className="centered">
+      <div style={{ marginTop: "100px" }}>
         <Spin tip="Loading" size="large">
           <div className="content" />
         </Spin>

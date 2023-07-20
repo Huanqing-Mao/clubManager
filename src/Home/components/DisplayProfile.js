@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
 import { Divider } from "antd";
-import { Card, Button } from "antd";
+import { Card, Button, Popover, Input } from "antd";
 import MyCCAs from "./MyOrganisations/MyCCAs";
 
 export default function UpdateProfile({ userID }) {
   const [data, setData] = useState(null);
   const [ccas, setCCAs] = useState([]);
   const [ccaNamesRoles, setCCANamesRoles] = useState([]);
+  const [open, setOpen] = useState(false);
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen);
+  };
 
   async function getCCARoles(userID) {
     console.log("fetching...");

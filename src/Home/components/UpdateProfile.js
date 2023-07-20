@@ -1,5 +1,5 @@
 import { message, Button } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../../supabase";
 import SelectFaculty from "./SelectFaculty";
 import SelectPE from "./SelectPE";
@@ -10,6 +10,42 @@ export default function UpdateProfile({ userID }) {
   const [year, setYear] = useState("");
   const [faculty, setFaculty] = useState("");
   const [pe, setPE] = useState("");
+
+  async function fetchDataById(userId) {
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+      console.log(data);
+
+      if (error) {
+        console.error("Error fetching username:", error);
+        return null;
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching username:", error);
+      return null;
+    }
+  }
+  useEffect(() => {
+    const getData = async () => {
+      const userData = await fetchDataById(userID);
+
+      if (userData) {
+        console.log("data:", userData);
+        setName(userData.name);
+        setEmail(userData.email);
+        setYear(userData.year);
+        setFaculty(userData.faculty);
+        setPE(userData.prior_experience);
+      }
+    };
+    getData();
+  }, [userID]);
 
   async function updateCCARoles(ccaID, userID) {
     const { data: userData, error: userError } = await supabase
@@ -140,10 +176,10 @@ export default function UpdateProfile({ userID }) {
             />
             <br />
             <p> Faculty: </p>
-            <SelectFaculty setFaculty={setFaculty} />
+            <SelectFaculty defaultFac={faculty} setFaculty={setFaculty} />
             <br />
             <p> Prior Experience: </p>
-            <SelectPE setPE={setPE} />
+            <SelectPE defaultPE={pe} setPE={setPE} />
             <br />
           </div>
 

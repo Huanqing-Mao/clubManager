@@ -1,8 +1,12 @@
 import { Select, Space } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function SelectPE({ setPE }) {
-  const [defaultValue, setDefault] = useState("Select");
+export default function SelectPE({ defaultPE, setPE }) {
+  const [defaultValue, setDefault] = useState(defaultPE);
+  //const defaultValue = defaultPE;
+  useEffect(() => {
+    setDefault(defaultPE);
+  }, [defaultPE]);
   const handleChange = (value) => {
     setDefault(value);
     console.log(`selected ${value}`);
@@ -15,7 +19,7 @@ export default function SelectPE({ setPE }) {
   const SelectMenu = () => (
     <Space wrap>
       <Select
-        defaultValue={defaultValue}
+        value={defaultValue}
         style={{
           width: 250
         }}

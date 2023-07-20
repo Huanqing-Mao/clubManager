@@ -1,8 +1,11 @@
 import { Select, Space } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function SelectFaculty({ setFaculty }) {
-  const [defaultValue, setDefault] = useState("Select Faculty");
+export default function SelectFaculty({ defaultFac, setFaculty }) {
+  const [defaultValue, setDefault] = useState(defaultFac);
+  useEffect(() => {
+    setDefault(defaultFac);
+  }, [defaultFac]);
   const handleChange = (value) => {
     setDefault(value);
     console.log(`selected ${value}`);
@@ -15,7 +18,7 @@ export default function SelectFaculty({ setFaculty }) {
   const SelectMenu = () => (
     <Space wrap>
       <Select
-        defaultValue={defaultValue}
+        value={defaultValue}
         style={{
           width: 250
         }}

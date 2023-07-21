@@ -57,7 +57,7 @@ export default function CreateNewAnn({ userID, hide, ccaID }) {
       <Input
         className="announcement-title"
         placeholder="Title"
-        maxLength="50"
+        maxLength={50}
         onChange={handleTitleChange}
         value={title}
         style={{

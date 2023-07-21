@@ -1,4 +1,4 @@
-import { Button, Input, Form, Divider, Space } from "antd";
+import { Button, Input, Form, Divider, Space, message } from "antd";
 import { useState } from "react";
 import { supabase } from "./supabase";
 
@@ -69,7 +69,7 @@ export default function JoinCCA({ userID }) {
             }
           ]}
         >
-          <Input placeholder="Enter the CCA ID" />
+          <Input placeholder="Enter the CCA ID" maxLength={100} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="AntButton">

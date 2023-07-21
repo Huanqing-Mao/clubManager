@@ -50,7 +50,7 @@ function Home({
               backgroundColor: "rgba(7, 133, 165, 0.1)"
             }}
           >
-            <div onClick={goAnn} className="announcement">
+            <div className="announcement">
               Recent Announcements
               <p></p>
             </div>

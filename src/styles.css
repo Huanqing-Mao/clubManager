@@ -141,6 +141,9 @@ button {
   .login-button {
     margin-top: 5%;
   }
+  .login-button:hover {
+    cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+  }
 }
 
 .login-label {
@@ -165,6 +168,10 @@ button {
   padding-left: 10%;
   padding-right: 10%;
   font-family: "Raleway", sans-serif;
+}
+
+button:hover {
+  cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
 }
 
 .login-message {
@@ -396,6 +403,13 @@ hr {
     overflow: auto;
     display: block;
   }
+}
+
+.flex-containerpoll {
+  padding-top: 2%;
+  padding-bottom: 35%;
+  overflow: auto;
+  display: flex;
 }
 
 .calendar {

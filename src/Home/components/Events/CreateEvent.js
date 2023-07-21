@@ -45,14 +45,17 @@ const onOk = (value) => {
 const { TextArea } = Input;
 
 function CreateEvent({ currentID, newEvent, hide, ccaID }) {
+  const [form] = Form.useForm();
   function onFinish(values) {
     console.log("Received values of form:", values);
     newEvent(values, currentID, ccaID);
     hide();
+    form.resetFields();
   }
 
   return (
     <Form
+      form={form}
       name="dynamic_form_item"
       {...formItemLayoutWithOutLabel}
       onFinish={onFinish}

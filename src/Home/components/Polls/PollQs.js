@@ -193,13 +193,17 @@ function PollQuestions({ pollID, cID, deletePoll, manager, ccaID }) {
           {form}
         </Form>
         <br></br>
-        {manager === true ? 
-        <Button
-          onClick={() => deletePoll(pollID, profile)}
-          className="AntButton"
-        >
-          Delete this poll
-        </Button> : <></> }
+        {manager === true ? (
+          <Button
+            onClick={() => deletePoll(pollID, profile)}
+            className="AntButton"
+            danger
+          >
+            Delete this poll
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

@@ -494,6 +494,7 @@ ul {
   flex-grow: 1;
   transition: 0.3s ease;
   margin-left: 2%;
+  margin-right: -3%;
   width: 100%;
 }
 

@@ -165,7 +165,8 @@ function PollPage({ userID, ccaID, manager }) {
                 onClick={() => choosePoll(item.id)}
                 hoverable={true}
               >
-                <p>submit by {item.deadline}</p>
+                <p>submit by </p>
+                <font color="blue">{item.deadline}</font>
                 <h1>{item.poll_name}</h1>
                 <font color="red">
                   {moment().isAfter(moment(item.deadline)) ? "Closed" : ""}
@@ -192,12 +193,14 @@ function PollPage({ userID, ccaID, manager }) {
       </div>
       {manager === true ? (
         <div className="create_poll">
+          <p></p>
           <Popover
             title="Create new poll"
             trigger="click"
             content={content}
             open={open}
             onOpenChange={handleOpenChange}
+            placement="left"
           >
             <Button className="AntButton">Create Poll</Button>
           </Popover>

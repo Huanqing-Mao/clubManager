@@ -10,6 +10,7 @@ import {
   Space,
   message
 } from "antd";
+import { LoginOutlined } from "@ant-design/icons";
 import JoinCCAPop from "./JoinCCAPop";
 import CreateCCAPop from "./CreateCCAPop";
 import cblogo from "./cb_logo.png";
@@ -21,13 +22,23 @@ export default function CCAdashboard({
   setChoice,
   setManager,
   choice,
-  manager
+  manager,
+  showLogOut
 }) {
   //const listOfCCAs = ["Chinese Dance", "Piano Ensemble", "Test CCA"];
   //const goToCCA = () => {};
   const [joined, setJoined] = useState(null);
   const [CCAs, setCCAs] = useState(null);
   console.log("In CCA dashboard");
+  const handleSignOut = async () => {
+    console.log(userID);
+    try {
+      await supabase.auth.signOut();
+      console.log("Success signing out!");
+    } catch (error) {
+      console.error("Error signing out:", error.message);
+    }
+  };
 
   async function getCCA(userID) {
     try {
@@ -94,6 +105,14 @@ export default function CCAdashboard({
         <JoinCCAPop userID={userID} />
         <Divider type="vertical" />
         <CreateCCAPop userID={userID} />
+        <Divider type="vertical" />
+        {showLogOut ? (
+          <Button icon=<LoginOutlined /> onClick={handleSignOut}>
+            Log Out
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
       <p></p>
       <br></br>

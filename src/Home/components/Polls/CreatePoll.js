@@ -81,7 +81,10 @@ function CreatePoll({ currentID, newPoll, hide, ccaID }) {
           }
         ]}
       >
-        <Input placeholder="Input your poll title" />
+        <Input
+          placeholder="Input your poll title (Maximum 50 characters)"
+          maxLength={50}
+        />
       </Form.Item>
       <Form.Item
         label="Question"
@@ -93,7 +96,10 @@ function CreatePoll({ currentID, newPoll, hide, ccaID }) {
           }
         ]}
       >
-        <Input placeholder="Input your poll question" />
+        <Input
+          placeholder="Input your poll question (Maximum 50 characters)"
+          maxLength={50}
+        />
       </Form.Item>
       <Form.Item label="Poll End Time" name="deadline">
         <DatePicker showTime onChange={onChange} onOk={onOk} />
@@ -145,6 +151,7 @@ function CreatePoll({ currentID, newPoll, hide, ccaID }) {
                       style={{
                         width: "60%"
                       }}
+                      maxLength={50}
                     />
                   </Form.Item>
                   {fields.length > 1 ? (

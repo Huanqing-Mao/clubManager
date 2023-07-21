@@ -52,7 +52,7 @@ export default function CreateNewFolder({ nameList, hide, ccaName }) {
       <Input
         className="new-folder-box"
         placeholder="Folder Name"
-        maxLength="20"
+        maxLength={20}
         onChange={handleFilenameInputChange}
         value={fileName}
         style={{

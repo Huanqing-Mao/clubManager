@@ -76,7 +76,7 @@ function CreateEvent({ currentID, newEvent, hide, ccaID }) {
           }
         ]}
       >
-        <Input placeholder="Enter the event name" />
+        <Input placeholder="Enter the event name" maxLength={50} />
       </Form.Item>
       <Form.Item
         label="Event details"
@@ -88,7 +88,11 @@ function CreateEvent({ currentID, newEvent, hide, ccaID }) {
           }
         ]}
       >
-        <TextArea rows={4} placeholder="Please enter the event details" />
+        <TextArea
+          rows={4}
+          placeholder="Please enter the event details"
+          maxLength={1000}
+        />
       </Form.Item>
       <Form.Item
         label="Event Date"

@@ -17,7 +17,7 @@ function CheckProfile({ userID }) {
         .select("name")
         .eq("user_id", uID)
         .single();
-  
+
       if (error) {
         console.error("Error fetching username:", error);
         setProfile(false);
@@ -42,7 +42,7 @@ function CheckProfile({ userID }) {
   }, [userID]);
 
   if (isLoading) {
-    console.log("profile still loading")
+    console.log("profile still loading");
     return (
       <div>
         <Spin tip="Loading" size="large">
@@ -51,7 +51,7 @@ function CheckProfile({ userID }) {
       </div>
     );
   } else if (profile === true) {
-    console.log("now entering check cca: ", profile)
+    console.log("now entering check cca: ", profile);
     console.log(userID);
     return (
       <div>

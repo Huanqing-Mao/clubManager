@@ -151,8 +151,18 @@ export default function FinForm({ setRecordPage, userID, manager, ccaID }) {
     //console.log(event.target.name);
   };
   const onYearChange = (event) => {
-    const year = parseInt(event.target.value, 10);
-    setAY(year);
+    if (event.target.value) {
+      const year = parseInt(event.target.value, 10);
+
+      if (!isNaN(year) && year >= 20 && year <= 3000) {
+        setAY(year);
+      } else {
+        setAY(currentYear);
+        message.warning("Please input a reasonable year value!");
+      }
+    } else {
+      setAY(event.target.value);
+    }
   };
   const onSemChange = (value) => {
     setDefaultSem(value);
@@ -407,6 +417,7 @@ export default function FinForm({ setRecordPage, userID, manager, ccaID }) {
               name="event"
               placeholder="Text Input"
               onChange={onEventNameChange}
+              maxLength={50}
             />
           </Form.Item>
           <Form.Item label="Academic Year (e.g. Put 2023 for AY23/24)">

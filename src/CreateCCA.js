@@ -30,21 +30,24 @@ export default function CreateCCA({ userID }) {
   //   const createCCA = () => {};
 
   async function newCCA(values) {
-    const { data: data1, error1 } = await supabase.from("CCA")
-    .select()
-    .eq("cca_name", values.cca_name);
+    const { data: data1, error1 } = await supabase
+      .from("CCA")
+      .select()
+      .eq("cca_name", values.cca_name);
     console.log("data1: ", data1);
 
     if (data1.length > 0) {
       console.log("CCA exist:", data1);
-      message.error("This CCA name has already been used. Please try another name.")
+      message.error(
+        "This CCA name has already been used. Please try another name."
+      );
     } else {
       const uniqueId = uuidv4();
       const { data, error } = await supabase.from("CCA").insert({
         cca_id: uniqueId,
         cca_name: values.cca_name
       });
-    
+
       if (error) {
         message.error("Failed to create the CCA.");
       } else {
@@ -96,7 +99,7 @@ export default function CreateCCA({ userID }) {
             }
           ]}
         >
-          <Input placeholder="Enter CCA Name" />
+          <Input placeholder="Enter CCA Name" maxLength={50} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="AntButton">

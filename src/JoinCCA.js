@@ -63,7 +63,7 @@ function JoinCCA({ userID }) {
             }
           ]}
         >
-          <Input placeholder="Enter the CCA ID" />
+          <Input placeholder="Enter the CCA ID" maxLength={50} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="AntButton">

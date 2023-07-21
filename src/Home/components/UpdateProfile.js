@@ -125,7 +125,18 @@ export default function UpdateProfile({ userID }) {
   };
 
   const handleYearChange = (event) => {
-    setYear(event.target.value);
+    // Parse the input value to an integer
+    const value = parseInt(event.target.value, 10);
+
+    // Check if the value is a number and within the range 1 to 5
+    if (!isNaN(value) && value >= 1 && value <= 5) {
+      setYear(value.toString());
+    }
+    // If the value is not a number or not within the range, set it to an empty string
+    else {
+      setYear("");
+      message.warning("Please input a value from 1 to 5!");
+    }
   };
 
   const handleFaultyChange = (event) => {
@@ -157,6 +168,7 @@ export default function UpdateProfile({ userID }) {
               type="text"
               value={email}
               onChange={handleEmailChange}
+              maxLength={50}
             />
             <br />
             <p> Name: </p>
@@ -165,9 +177,10 @@ export default function UpdateProfile({ userID }) {
               type="text"
               value={name}
               onChange={handleNameChange}
+              maxLength={100}
             />
             <br />
-            <p> Year: </p>
+            <p> Year: (Please put 5 if you are a graduate student)</p>
             <input
               className="profileInput"
               type="number"

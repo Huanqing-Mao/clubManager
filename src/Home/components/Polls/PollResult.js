@@ -99,7 +99,7 @@ function PollResult({ pollID, currentID }) {
     <div className="poll_result">
       <h2>Poll result:</h2>
       <Button onClick={refreshData} icon=<SyncOutlined />>
-        refresh
+        Refresh
       </Button>
       <p></p>
       <ResponsiveContainer width="100%" height={60 * records.length}>

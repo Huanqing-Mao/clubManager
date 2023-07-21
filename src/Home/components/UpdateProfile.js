@@ -88,6 +88,8 @@ export default function UpdateProfile({ userID }) {
       pe === ""
     ) {
       message.error("Please fill in all the fields!");
+    } else if (!isValidEmail(email)) {
+      message.error("Please put in a valid email!");
     } else {
       const { data, error } = await supabase
         .from("users")
@@ -105,15 +107,19 @@ export default function UpdateProfile({ userID }) {
       } else {
         console.log("Data updated successfully");
         message.success("Data Updated Successfully!");
+        setEmail("");
+        setName("");
+        setYear("");
+        setFaculty("");
+        setPE("");
         window.location.reload(true);
       }
     }
+  }
 
-    setEmail("");
-    setName("");
-    setYear("");
-    setFaculty("");
-    setPE("");
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
   const handleEmailChange = (event) => {

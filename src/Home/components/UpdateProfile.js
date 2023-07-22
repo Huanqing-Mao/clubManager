@@ -186,7 +186,14 @@ export default function UpdateProfile({ userID }) {
               maxLength={100}
             />
             <br />
-            <p> Year: (Please put 5 if you are a graduate student)</p>
+            <p>
+              {" "}
+              Year:
+              <br />
+              <span style={{ fontStyle: "italic", fontSize: "70%" }}>
+                (Please put 5 if you are a graduate student)
+              </span>
+            </p>
             <input
               className="profileInput"
               type="number"

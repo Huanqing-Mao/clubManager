@@ -1,7 +1,7 @@
 import { Button, Input, Form, Divider, Space, message } from "antd";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { supabase } from "./supabase";
+import { supabase } from "../supabase";
 
 const formItemLayoutWithOutLabel = {
   wrapperCol: {

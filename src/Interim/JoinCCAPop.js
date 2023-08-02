@@ -1,6 +1,6 @@
 import { Button, Popover } from "antd";
 import { useState } from "react";
-import JoinCCA2 from "./JoinCCA";
+import JoinCCA from "./JoinCCA";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 
 export default function JoinCCAPop( { userID } ) {
@@ -15,7 +15,7 @@ export default function JoinCCAPop( { userID } ) {
     <Popover
       content={
         <div>
-          <JoinCCA2 userID={userID} />
+          <JoinCCA userID={userID} />
           <a onClick={hide}>Close</a>
         </div>
       }

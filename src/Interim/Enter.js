@@ -1,7 +1,6 @@
-import { supabase } from "./supabase";
+import { supabase } from "../supabase";
 import { useState, useEffect } from "react";
-import Dashboard from "./Dashboard";
-import HomePage from "./Home/HomePage";
+import HomePage from "../Home/HomePage";
 import CCAdashboard from "./CCAdashboard";
 
 function Enter({ userID }) {

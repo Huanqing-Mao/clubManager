@@ -2,8 +2,8 @@ import { supabase } from "./supabase";
 import { useState, useEffect } from "react";
 import HomePage from "./Home/HomePage";
 import CompleteProfile from "./Home/components/CompleteProfile";
-import CheckCCA from "./CheckCCA";
-import Enter from "./Enter";
+import CheckCCA from "./Interim/CheckCCA";
+import Enter from "./Interim/Enter";
 import { Spin } from "antd";
 
 function CheckProfile({ userID }) {

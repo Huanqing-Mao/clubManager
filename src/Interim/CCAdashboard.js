@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../styles.css";
 import {
   Card,
   Button,
@@ -13,9 +13,9 @@ import {
 import { LoginOutlined } from "@ant-design/icons";
 import JoinCCAPop from "./JoinCCAPop";
 import CreateCCAPop from "./CreateCCAPop";
-import cblogo from "./cb_logo.png";
+import cblogo from "../cb_logo.png";
 import { useState, useEffect, useCallback } from "react";
-import { supabase } from "./supabase";
+import { supabase } from "../supabase";
 
 export default function CCAdashboard({
   userID,

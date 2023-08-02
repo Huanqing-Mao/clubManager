@@ -1,6 +1,6 @@
-import { Button, Input, Form, Divider, Space, message } from "antd";
-import { useState } from "react";
-import { supabase } from "./supabase";
+import { supabase } from "../supabase";
+import { useState, useEffect } from "react";
+import { Form, Input, message, Button } from "antd";
 
 const formItemLayoutWithOutLabel = {
   wrapperCol: {
@@ -15,19 +15,7 @@ const formItemLayoutWithOutLabel = {
   }
 };
 
-export default function JoinCCA({ userID }) {
-  // const [code, setCode] = useState("");
-  // const [newCCAName, setNewCCAName] = useState("");
-  // const onCodeChange = (event) => {
-  //   setCode(event.target.value);
-  // };
-
-  // const onNameChange = (event) => {
-  //   setNewCCAName(event.target.value);
-  // };
-  // const joinCCA = () => {};
-  // const createCCA = () => {};
-
+function JoinCCA({ userID }) {
   async function newMember(values) {
     const { data, error } = await supabase.from("Records").insert({
       cca_id: values.cca_id,
@@ -36,15 +24,21 @@ export default function JoinCCA({ userID }) {
     });
 
     if (error) {
-      message.error("Failed to join the CCA.");
+      message.error(
+        "Failed to join the CCA. Wrong code or you are already in the CCA."
+      );
     } else {
       message.success("Successfully joined");
+      window.location.reload(true);
     }
 
     // You can return any relevant data after creating the new event
   }
+
   return (
     <div>
+      <h2>Join CCA</h2>
+      <p>Please contact your CCA manager for the CCA ID to join the CCA!</p>
       <Form
         name="dynamic_form_item"
         {...formItemLayoutWithOutLabel}
@@ -69,7 +63,7 @@ export default function JoinCCA({ userID }) {
             }
           ]}
         >
-          <Input placeholder="Enter the CCA ID" maxLength={100} />
+          <Input placeholder="Enter the CCA ID" maxLength={50} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="AntButton">
@@ -80,3 +74,5 @@ export default function JoinCCA({ userID }) {
     </div>
   );
 }
+
+export default JoinCCA;

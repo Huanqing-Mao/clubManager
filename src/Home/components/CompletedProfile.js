@@ -1,7 +1,7 @@
 import UpdateProfile from "./UpdateProfile";
 import DisplayProfile from "./DisplayProfile";
 import MenuBar from "./MenuBar";
-import CCAdashboard from "../../CCAdashboard";
+import CCAdashboard from "../../Interim/CCAdashboard";
 import { useState } from "react";
 import { supabase } from "../../supabase";
 

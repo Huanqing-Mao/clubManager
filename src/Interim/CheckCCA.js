@@ -1,4 +1,4 @@
-import { supabase } from "./supabase";
+import { supabase } from "../supabase";
 import { useState, useEffect } from "react";
 import { Spin } from "antd";
 import Enter from "./Enter";

@@ -79,7 +79,7 @@ function PollPage({ userID, ccaID, manager }) {
     );
   } else if (load === "loaded" && !polls.length) {
     return (
-      <div className="flex-container">
+      <div className="flex-containerpoll">
         <div className="no_poll">
           <p>There are no polls yet.</p>
         </div>
@@ -155,7 +155,7 @@ function PollPage({ userID, ccaID, manager }) {
   }
 
   return (
-    <div className="flex-container">
+    <div className="flex-containerpoll">
       <div className="poll_list">
         <ul>
           {polls.map((item) => (
@@ -193,12 +193,14 @@ function PollPage({ userID, ccaID, manager }) {
       </div>
       {manager === true ? (
         <div className="create_poll">
+          <p></p>
           <Popover
             title="Create new poll"
             trigger="click"
             content={content}
             open={open}
             onOpenChange={handleOpenChange}
+            placement="left"
           >
             <Button className="AntButton">Create Poll</Button>
           </Popover>

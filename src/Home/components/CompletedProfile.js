@@ -5,7 +5,13 @@ import CCAdashboard from "../../CCAdashboard";
 import { useState } from "react";
 import { supabase } from "../../supabase";
 
-export default function CompletedProfile({ userID, setCCA, setManager, ccaID, manager }) {
+export default function CompletedProfile({
+  userID,
+  setCCA,
+  setManager,
+  ccaID,
+  manager
+}) {
   const [page, setPage] = useState("myProfile");
   const handleSignOut = async () => {
     try {
@@ -33,7 +39,14 @@ export default function CompletedProfile({ userID, setCCA, setManager, ccaID, ma
         <div>
           <br></br>
           <br></br>
-          <CCAdashboard userID={userID} setChoice={setCCA} setManager={setManager} choice={ccaID} manager={manager}/>
+          <CCAdashboard
+            userID={userID}
+            setChoice={setCCA}
+            setManager={setManager}
+            choice={ccaID}
+            manager={manager}
+            showLogOut={false}
+          />
         </div>
       )}
     </div>

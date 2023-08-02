@@ -51,7 +51,7 @@ export default function MemberList({ userID, manager, ccaID }) {
       console.error("Error fetching username:", error);
       message.error("Error Setting Manager!");
     } else {
-      message.success("Success Removing Member!");
+      message.success("Success!");
     }
   }
 

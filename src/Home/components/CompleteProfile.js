@@ -20,6 +20,10 @@ export default function CompleteProfile({ userID }) {
       console.error("Error signing out:", error.message);
     }
   };
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   async function updateInformation(event) {
     event.preventDefault(); // Prevent form submission behavior
@@ -33,6 +37,8 @@ export default function CompleteProfile({ userID }) {
       pe === ""
     ) {
       message.error("Please fill in all the fields!");
+    } else if (!isValidEmail(email)) {
+      message.error("Please put in a valid email!");
     } else {
       const { error } = await supabase.from("users").insert({
         user_id: userID,
@@ -115,7 +121,14 @@ export default function CompleteProfile({ userID }) {
               maxLength={100}
             />
             <br />
-            <p> Year: (Please put 5 if you are a graduate student) </p>
+            <p>
+              {" "}
+              Year:
+              <br />
+              <span style={{ fontStyle: "italic", fontSize: "70%" }}>
+                (Please put 5 if you are a graduate student)
+              </span>
+            </p>
             <input
               className="profileInput"
               type="number"

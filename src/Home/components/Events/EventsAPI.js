@@ -9,7 +9,12 @@ export async function fetchEvents(ccaID) {
     .is("active", true)
     .order("date_time", { ascending: false });
 
-  return es;
+  if (error) {
+    return [];
+  } else if (es) {
+    return es;
+  } 
+  
 }
 
 export async function newEvent(values, currentID, ccaID) {

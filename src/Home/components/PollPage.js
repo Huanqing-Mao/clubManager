@@ -41,9 +41,15 @@ function PollPage({ userID, ccaID, manager }) {
       .is("active", true)
       .eq("cca_id", ccaID)
       .order("deadline", { ascending: false });
-    setPolls(Polls);
-    setLoad("loaded");
-    //console.log(polls);
+
+    if (error) {
+      setPolls([]);
+    } else {
+      setPolls(Polls);
+      setLoad("loaded");
+      //console.log(polls);
+    }
+    
   }
 
   async function getUserID() {
